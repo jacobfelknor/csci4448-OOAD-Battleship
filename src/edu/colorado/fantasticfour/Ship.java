@@ -3,6 +3,9 @@ package edu.colorado.fantasticfour;
 // TODO: practice good OO design
 public class Ship {
     private String name;
+    public Ship(){
+        // Team Fantastic Four, pair 2 was here
+    }
     // TODO: create appropriate getter and setter methods
     // TODO: Understand encapsulation
     // TODO: Understand what these todo comments mean
