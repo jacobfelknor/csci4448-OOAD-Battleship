@@ -6,8 +6,10 @@ public class Ship {
     private String name;
     private int length;
     private int hitCount;
+    private int[] coordinates;
 
-    public Ship(int length) {
+    public Ship(String name, int length) {
+        this.name = name;
         this.length = length;
         this.hitCount = 0;
     }
@@ -29,13 +31,34 @@ public class Ship {
     }
 
     public boolean isSunk(){
-        if (getHitCount() >= getLength()){
-            return true;
-        }
-        return false;
+        return getHitCount() >= getLength();
     }
 
-    public void show() { // dunno why this is here maybe it is just an example method
-        System.out.println("IF you can't see this then something is severely wrong!!");
+    private int getLengthFromCoordinates(int x0, int y0, int x1, int y1) throws IllegalArgumentException{
+        if(x0 - x1 == 0){
+            return Math.abs(y0 - y1) + 1;
+        }else if(y0 - y1 == 0){
+            return Math.abs(x0 - x1) + 1;
+        }
+        throw new IllegalArgumentException("Coordinates are not on a straight line");
     }
+
+    public int[] getCoordinates() {
+        return this.coordinates;
+    }
+
+    public void place(int[] coordinates) throws IllegalArgumentException{
+        int x0 = coordinates[0];
+        int y0 = coordinates[1];
+        int x1 = coordinates[2];
+        int y1 = coordinates[3];
+        if (!(x0 <= 9 && x1 <= 9 && y0 <= 9 && y1 <= 9)){
+            throw new IllegalArgumentException("Ship needs to be placed within 10x10 grid");
+        }
+        if (getLengthFromCoordinates(x0, y0, x1, y1) != getLength()){
+            throw new IllegalArgumentException("Coordinates given are not of correct length");
+        }
+        this.coordinates = coordinates;
+    }
+
 }
