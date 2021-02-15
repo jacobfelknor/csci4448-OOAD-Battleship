@@ -6,7 +6,7 @@ public class Ship {
     private String name;
     private int length;
     private int hitCount;
-    private int[] coordinates;
+    private int[] coordinates; // {x0, y0, x1, y1}
 
     public Ship(String name, int length) {
         this.name = name;

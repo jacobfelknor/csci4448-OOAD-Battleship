@@ -20,6 +20,10 @@ public class Player {
         return ships.stream().filter(ship -> !ship.isSunk() && ship.getCoordinates() != null).collect(Collectors.toList());
     }
 
+    public boolean mustSurrender(){
+        return getAfloatShips().size() == 0;
+    }
+
     public List<Ship> getPlacedShips(){
         return ships.stream().filter(ship -> ship.getCoordinates() != null).collect(Collectors.toList());
     }

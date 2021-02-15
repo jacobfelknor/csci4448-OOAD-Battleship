@@ -4,6 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
         // write your code here
-         Ship ship = new Ship("Minesweeper", 2);
+        // Game game = new Game();
+        // game.start();
+
     }
 }
