@@ -1,9 +1,11 @@
 import edu.colorado.fantasticfour.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.Assert;
 
 import java.util.HashMap;
+import java.util.List;
 
 import static junit.framework.TestCase.fail;
 
@@ -13,14 +15,9 @@ public class GameClassTest {
     private Player player2;
 
     public void placePlayerShips(Player player) {
-        HashMap<String, int[]> shipMap = new HashMap<>();
-        shipMap.put("Minesweeper", new int[]{0, 0, 0, 1});
-        shipMap.put("Destroyer", new int[]{5, 5, 5, 7});
-        shipMap.put("Battleship", new int[]{9, 9, 6, 9});
-        for (Ship ship : player.getAllShips()) {
-            ship.place(shipMap.get(ship.getName()));
-            Assert.assertEquals(ship.getCoordinates(), shipMap.get(ship.getName()));
-        }
+        player.placeShip("Minesweeper", new Location(0,0), new Location(0,1));
+        player.placeShip("Destroyer", new Location(5,5), new Location(5,6), new Location(5,7));
+        player.placeShip("Battleship", new Location(9,9), new Location(8,9), new Location(7,9), new Location(6,9));
     }
 
     @Before
@@ -43,7 +40,7 @@ public class GameClassTest {
             Player player3 = game.getPlayer("3");
             fail(); // should never be reached
         } catch (IllegalArgumentException e){
-            Assert.assertEquals(e.getMessage(), "Game only has player '1' and '2'");
+            Assert.assertEquals("Game only has player '1' and '2'", e.getMessage());
         }
     }
 
@@ -54,29 +51,29 @@ public class GameClassTest {
         placePlayerShips(player2);
         // simulate turns for
         // minesweeper
-        Assert.assertEquals(player1.takeShot(0,0), "HIT");
-        Assert.assertEquals(player2.takeShot(0,1), "HIT");
-        Assert.assertEquals(player1.takeShot(0,1), "SUNK");
-        Assert.assertEquals(player2.takeShot(0,0), "SUNK");
+        Assert.assertEquals("HIT", player1.takeShot(0,0));
+        Assert.assertEquals("HIT", player2.takeShot(0,1));
+        Assert.assertEquals("SUNK", player1.takeShot(0,1));
+        Assert.assertEquals("SUNK", player2.takeShot(0,0));
         Assert.assertFalse(player2.mustSurrender());
         Assert.assertFalse(player1.mustSurrender());
         // destroyer
-        Assert.assertEquals(player1.takeShot(5,5), "HIT");
-        Assert.assertEquals(player2.takeShot(5,5), "HIT");
-        Assert.assertEquals(player1.takeShot(5,6), "HIT");
-        Assert.assertEquals(player2.takeShot(5,6), "HIT");
-        Assert.assertEquals(player1.takeShot(5,7), "SUNK");
-        Assert.assertEquals(player2.takeShot(5,7), "SUNK");
+        Assert.assertEquals("HIT", player1.takeShot(5,5));
+        Assert.assertEquals("HIT", player2.takeShot(5,5));
+        Assert.assertEquals("HIT", player1.takeShot(5,6));
+        Assert.assertEquals("HIT", player2.takeShot(5,6));
+        Assert.assertEquals("SUNK", player1.takeShot(5,7));
+        Assert.assertEquals("SUNK", player2.takeShot(5,7));
         Assert.assertFalse(player2.mustSurrender());
         Assert.assertFalse(player1.mustSurrender());
         //battleship
-        Assert.assertEquals(player1.takeShot(9,9), "HIT");
-        Assert.assertEquals(player2.takeShot(9,9), "HIT");
-        Assert.assertEquals(player1.takeShot(8,9), "HIT");
-        Assert.assertEquals(player2.takeShot(8,9), "HIT");
-        Assert.assertEquals(player1.takeShot(7,9), "HIT");
-        Assert.assertEquals(player2.takeShot(7,9), "HIT");
-        Assert.assertEquals(player1.takeShot(6,9), "SUNK");
+        Assert.assertEquals("HIT", player1.takeShot(9,9));
+        Assert.assertEquals("HIT", player2.takeShot(9,9));
+        Assert.assertEquals("HIT", player1.takeShot(8,9));
+        Assert.assertEquals("HIT", player2.takeShot(8,9));
+        Assert.assertEquals("HIT", player1.takeShot(7,9));
+        Assert.assertEquals("HIT", player2.takeShot(7,9));
+        Assert.assertEquals("SUNK", player1.takeShot(6,9));
         // player 1 should have won
         Assert.assertTrue(player2.mustSurrender());
         Assert.assertFalse(player1.mustSurrender());

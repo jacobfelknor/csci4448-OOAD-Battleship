@@ -1,15 +1,20 @@
 package edu.colorado.fantasticfour;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Player {
-    private Board theirBoard;
+    private Board board;
     private Player opponent;
     private List<Ship> ships;
 
     public Board getTheirBoard() {
-        return theirBoard;
+        return opponent.board;
+    }
+    public Board getMyBoard(){
+        return this.board;
     }
 
     public List<Ship> getAllShips(){
@@ -28,29 +33,22 @@ public class Player {
         return ships.stream().filter(ship -> ship.getCoordinates() != null).collect(Collectors.toList());
     }
 
-    public Ship getShipByName(String name){
+    public Ship getShipByName(String name) throws IllegalArgumentException{
         for(Ship ship : this.ships){
             if(ship.getName().equals(name)){
                 return ship;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Ship not found");
     }
 
-    public Ship getShipAt(int x, int y){
+    public Ship getShipAt(Location location) throws IllegalArgumentException{
         for(Ship ship : getPlacedShips()){
-            int[] coordinates = ship.getCoordinates();
-            int x0 = coordinates[0];
-            int y0 = coordinates[1];
-            int x1 = coordinates[2];
-            int y1 = coordinates[3];
-            if((x >= x0 && x <= x1) || (x >= x1 && x <= x0)){
-                if((y >= y0 && y <= y1) || (y >= y1 && y <= y0)){
-                    return ship;
-                }
-            }
+           if(ship.getCoordinates().contains(new Cell(location))){
+               return ship;
+           }
         }
-        return null;
+        throw new IllegalArgumentException("Ship not found");
     }
 
     public Player() {
@@ -60,32 +58,31 @@ public class Player {
                 new Ship("Destroyer",3),
                 new Ship("Battleship",4)
         );
+        this.board = new Board(this);
     }
 
     public void setOpponent(Player opp){
         this.opponent = opp;
-        this.theirBoard = new Board(opponent);
     }
 
     public String takeShot(int x, int y) throws IllegalArgumentException{
-        return theirBoard.shootAt(x, y);
+        return getTheirBoard().shootAt(x, y);
     }
 
-    public boolean hasShipAt(int x, int y){
-        for(Ship ship : getPlacedShips()){
-            int[] coordinates = ship.getCoordinates();
-            int x0 = coordinates[0];
-            int y0 = coordinates[1];
-            int x1 = coordinates[2];
-            int y1 = coordinates[3];
-            if((x >= x0 && x <= x1) || (x >= x1 && x <= x0)){
-                if((y >= y0 && y <= y1) || (y >= y1 && y <= y0)){
-                    ship.gotHit();
-                    return true;
-                }
-            }
+    public void placeShip(String name, Location @NotNull ... locations) throws IllegalArgumentException{
+        Ship ship = this.getShipByName(name);
+        if(locations.length != ship.getLength()){
+            throw new IllegalArgumentException("Number of cells must match ship length");
         }
-        return false;
+        if(Board.inStraightLine(locations)){
+            List<Cell> shipCells = this.getMyBoard().getCellsAtLocations(locations);
+            ship.setCoordinates(shipCells);
+            for(Cell cell : shipCells){
+                cell.setShip(ship);
+            }
+        }else{
+            throw new IllegalArgumentException("Cells are not on a straight line");
+        }
     }
 
 }
