@@ -44,7 +44,7 @@ public class Player {
 
     public Ship getShipAt(Location location) throws IllegalArgumentException{
         for(Ship ship : getPlacedShips()){
-           if(ship.getCoordinates().contains(new Cell(location.getX(), location.getY()))){
+           if(ship.getCoordinates().contains(new Cell(location))){
                return ship;
            }
         }

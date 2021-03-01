@@ -14,7 +14,7 @@ public class Board {
     public Board(Player player){
         for (int i = 0; i < gridCol; i++){
             for (int j = 0 ; j < gridRow; j++){
-                grid[i][j] = new Cell(i,j);
+                grid[i][j] = new Cell(new Location(i, j));
             }
         }
         this.player = player;

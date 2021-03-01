@@ -1,4 +1,5 @@
 import edu.colorado.fantasticfour.Cell;
+import edu.colorado.fantasticfour.Location;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -6,16 +7,16 @@ public class CellClassTest {
 
     @Test
     public void canGetCooridates(){
-        Cell cell = new Cell(5,7);
-        Assert.assertEquals(5, cell.getX());
-        Assert.assertEquals(7, cell.getY());
+        Location location = new Location(5,7);
+        Cell cell = new Cell(location);
+        Assert.assertEquals(location, cell.getLocation());
     }
 
     @Test
     public void canCompareCells(){
-        Cell cell1 = new Cell(5,7);
-        Cell cell2 = new Cell(5,7);
-        Cell cell3 = new Cell(4,3);
+        Cell cell1 = new Cell(new Location(5,7));
+        Cell cell2 = new Cell(new Location(5,7));
+        Cell cell3 = new Cell(new Location(4,3));
         Integer seven = 7;
         Assert.assertEquals(cell1, cell1);
         Assert.assertEquals(cell2, cell2);
