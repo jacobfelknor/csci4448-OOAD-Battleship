@@ -3,6 +3,10 @@ import edu.colorado.fantasticfour.Location;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class CellClassTest {
 
     @Test
@@ -30,5 +34,11 @@ public class CellClassTest {
         // test against an instance of a different class
         Assert.assertNotEquals(cell1, seven);
         Assert.assertNotEquals(seven, cell1);
+    }
+
+    @Test
+    public void toStringTest(){
+        Cell cell = new Cell(new Location(7,8));
+        Assert.assertEquals("Cell<Location<(7,8)>>", cell.toString());
     }
 }

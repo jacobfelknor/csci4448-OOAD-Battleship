@@ -52,11 +52,10 @@ public class Player {
     }
 
     public Player() {
-        // player constructor creates its boards
         this.ships = List.of(
-                new Ship("Minesweeper", 2),
-                new Ship("Destroyer",3),
-                new Ship("Battleship",4)
+                new Minesweeper(),
+                new Destroyer(),
+                new Battleship()
         );
         this.board = new Board(this);
     }

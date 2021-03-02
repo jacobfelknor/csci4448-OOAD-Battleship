@@ -1,5 +1,7 @@
 package edu.colorado.fantasticfour;
 
+import java.util.Comparator;
+
 public class Cell {
     private Location location;
     private Ship ship;
@@ -20,6 +22,11 @@ public class Cell {
 
     public Ship getShip(){
         return this.ship;
+    }
+
+    @Override
+    public String toString(){
+        return "Cell<" + getLocation().toString() + ">";
     }
 
     @Override
@@ -44,4 +51,18 @@ public class Cell {
 
     /* NOTE: we should also override the hashCode(). Equal objects should generate equal hashes */
 
+}
+
+class CellComparator implements Comparator<Cell>{
+    @Override
+    public int compare(Cell a, Cell b){
+        if(a.getLocation().getX() == b.getLocation().getX()){
+            // if x's are equal, sort by y's
+            return a.getLocation().getY() - b.getLocation().getY();
+        }else{
+            // otherwise, sort by x's (y's must be equal)
+            assert a.getLocation().getY() == b.getLocation().getY();
+            return a.getLocation().getX() - b.getLocation().getX();
+        }
+    }
 }

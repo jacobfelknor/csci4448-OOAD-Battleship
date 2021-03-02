@@ -31,4 +31,10 @@ public class LocationClassTest {
         Assert.assertNotEquals(location1, seven);
         Assert.assertNotEquals(seven, location1);
     }
+
+    @Test
+    public void toStringTest(){
+        Location location = new Location(7,8);
+        Assert.assertEquals("Location<(7,8)>", location.toString());
+    }
 }
