@@ -3,9 +3,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.List;
-
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.fail;
 
@@ -43,26 +40,6 @@ public class PlayerClassTest {
         Assert.assertEquals(0, player1.getAfloatShips().size());
         player1.placeShip("Battleship", new Location(9,9), new Location(8,9), new Location(7,9), new Location(6,9));
         Assert.assertEquals(1, player1.getAfloatShips().size());
-    }
-
-    @Test
-    public void canPlaceShipAndGetHit() {
-        player1.placeShip("Battleship", new Location(9,9), new Location(8,9), new Location(7,9), new Location(6,9));
-        Assert.assertEquals("HIT", player2.takeShot(8,9));
-    }
-
-    @Test
-    public void canPlaceShipAndSink(){
-        Assert.assertNotNull(player1.getShipByName("Battleship"));
-        player1.placeShip("Battleship", new Location(3,0), new Location(3,1), new Location(3,2), new Location(3,3));
-        Assert.assertEquals("MISS", player2.takeShot(0,0));
-        Assert.assertEquals("MISS", player2.takeShot(5,7));
-        Assert.assertEquals("HIT", player2.takeShot(3,0));
-        Assert.assertEquals("HIT", player2.takeShot(3,2));
-        Assert.assertEquals("HIT", player2.takeShot(3,3));
-        Assert.assertEquals("SUNK", player2.takeShot(3,1));
-        // sunk
-        Assert.assertTrue(player1.getShipByName("Battleship").isSunk());
     }
 
     @Test

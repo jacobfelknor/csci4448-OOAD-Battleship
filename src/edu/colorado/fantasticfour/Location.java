@@ -1,6 +1,6 @@
 package edu.colorado.fantasticfour;
 
-public class Location {
+public class Location{
     private int x;
     private int y;
 
@@ -15,6 +15,11 @@ public class Location {
     public Location(int x, int y){
         this.x = x;
         this.y = y;
+    }
+
+    @Override
+    public String toString(){
+        return "Location<(" + this.getX() + "," + this.getY() + ")>";
     }
 
     @Override
