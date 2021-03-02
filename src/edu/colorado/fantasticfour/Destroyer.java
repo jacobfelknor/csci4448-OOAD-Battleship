@@ -5,20 +5,7 @@ public class Destroyer extends Ship {
     public Destroyer(){
         this.name = "Destroyer";
         this.length = 3;
-        this.captainsQ = 1;
-    }
-
-    @Override
-    public boolean isCellAHit(Cell cell) {
-        assert this.getCoordinates().contains(cell);
-        if(this.getCoordinates().get(this.captainsQ).equals(cell)){
-            if(hasCaptainQArmor){
-                this.hasCaptainQArmor = false;
-                return false;
-            }else {
-                this.sunk = true;
-            }
-        }
-        return true;
+        // a destroyer has captains q in position 1
+        this.captainsQuartersBehavior = new CaptainsQuartersWithArmor(1);
     }
 }
