@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class Ship {
     protected String name;
     protected int length;
-    protected int captainsQ;
+    protected CaptainsQuartersBehavior captainsQuartersBehavior;
     protected boolean sunk = false;
     private List<Cell> coordinates;
 
@@ -27,7 +27,11 @@ public abstract class Ship {
        return this.sunk;
     }
 
-    public abstract boolean isCellAHit(Cell cell);
+    public boolean isCellAHit(Cell cell) {
+        assert this.getCoordinates().contains(cell);
+        return this.captainsQuartersBehavior
+                .checkWithCaptainsQuarters(this, cell);
+    }
 
     public List<Cell> getCoordinates() {
         if(this.coordinates == null || this.coordinates.size() == 0){
