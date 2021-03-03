@@ -6,9 +6,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Player {
+    public Sonar sonar;
     private Board board;
     private Player opponent;
     private List<Ship> ships;
+
+    public Sonar getSonarCount() {
+        return sonar;
+    }
 
     public Board getTheirBoard() {
         return opponent.board;
@@ -58,6 +63,7 @@ public class Player {
                 new Battleship()
         );
         this.board = new Board(this);
+        this.sonar = new Sonar(this);
     }
 
     public void setOpponent(Player opp){
