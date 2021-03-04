@@ -3,7 +3,7 @@ package edu.colorado.fantasticfour;
 public class Sonar {
     public int movesLeft = 2;
     private Player player;
-    private boolean[] sonarList;
+    private boolean sonarCenterBool;
 
     public Sonar(Player player) {
         this.player = player;
@@ -27,15 +27,15 @@ public class Sonar {
 //        yTarget = y;
 //    }
 
-    public boolean[] getSonarAt(int x, int y) {
+    public boolean getSonarAt(int x, int y) {
         //for (int i = 0; i < 13; i++) {
 
-            if (player.getTheirBoard().getCellAt(x, y).getShip() == null) {
-                sonarList[6] = false;
-            } else {
-                sonarList[6] = true;
-            }
+        if (player.getTheirBoard().getCellAt(x, y).getShip() == null) {
+            player.sonar.sonarCenterBool = false;
+        } else {
+            player.sonar.sonarCenterBool = true;
+        }
         //}
-        return sonarList;
+        return sonarCenterBool;
     }
 }

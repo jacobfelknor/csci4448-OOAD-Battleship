@@ -10,12 +10,14 @@ import static junit.framework.TestCase.fail;
 
 public class SonarClassTest {
     private Player player;
+    private Player player2;
     //private Cell cell;
-    private boolean[] sonarResults;
+    private boolean centerResult;
 
     @Before
     public void setUp(){
         player = new Player();
+        player2 = new Player();
     }
 
     @Test
@@ -49,12 +51,13 @@ public class SonarClassTest {
 
     @Test
     public void returnsShipAtCenterOfSonar() {
-        sonarResults = player.sonar.getSonarAt(5,5);
+        player.setOpponent(player2);
+        centerResult = player.sonar.getSonarAt(5,5);
         //Location location = new Location(5,5);
         //cell = player.sonar.getLocations();
         //Assert.assertEquals(null, cell.getLocation().getX());
         //Assert.assertEquals(null, cell.getLocation().getY());
-        Assert.assertEquals(false, sonarResults[6]);
+        Assert.assertFalse(centerResult);
     }
 
 
