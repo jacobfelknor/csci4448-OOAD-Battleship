@@ -5,19 +5,18 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.fail;
 
-//import static junit.framework.TestCase.assertNotNull;
-//import static junit.framework.TestCase.fail;
-
 public class SonarClassTest {
     private Player player;
     private Player player2;
-    //private Cell cell;
-    private boolean centerResult;
+    private boolean result;
+    private boolean[] resultList = new boolean[13];
 
     @Before
     public void setUp(){
         player = new Player();
         player2 = new Player();
+        player.setOpponent(player2);
+        player.sonar.setTarget(5, 5);
     }
 
     @Test
@@ -50,15 +49,48 @@ public class SonarClassTest {
     }
 
     @Test
-    public void returnsShipAtCenterOfSonar() {
-        player.setOpponent(player2);
-        centerResult = player.sonar.getSonarAt(5,5);
-        //Location location = new Location(5,5);
-        //cell = player.sonar.getLocations();
-        //Assert.assertEquals(null, cell.getLocation().getX());
-        //Assert.assertEquals(null, cell.getLocation().getY());
-        Assert.assertFalse(centerResult);
+    public void sonarDetectsShip() {
+        result = player.sonar.getSonarAt(5,5);
+        Assert.assertFalse(result);
     }
 
+    @Test
+    public void checkSonarResults() {
+        player.sonar.useSonar();
+        resultList = player.sonar.getSonarResults();
+        for (int i = 0; i < resultList.length; i++){
+            // added == 4 condition to verify process, not permanent
+            if (i == 4){
+                Assert.assertEquals(true, resultList[i]);
+            }else {
+                Assert.assertEquals(false, resultList[i]);
+            }
+        }
+    }
 
+    @Test
+    public void checkTargetInBounds() {
+        try{
+            player.sonar.setTarget(11,13);
+            player.sonar.setTarget(-1,-1);
+            player.sonar.setTarget(-1,3);
+            player.sonar.setTarget(3,-1);
+            player.sonar.setTarget(5,21);
+
+            fail();
+        }catch (IllegalArgumentException e) {
+            Assert.assertEquals("Target out of Bounds", e.getMessage());
+        }
+    }
+
+    @Test
+    public void checkOutOfBoundsIsFalse() {
+        player.sonar.setTarget(0,0);
+        player.sonar.useSonar();
+        resultList = player.sonar.getSonarResults();
+
+        Assert.assertEquals(false, resultList[0]);
+
+
+    }
 }
