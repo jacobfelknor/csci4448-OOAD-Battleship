@@ -13,20 +13,23 @@ public class Sonar {
         }
     }
 
-    public void setTarget(int x, int y){
-        if ((x > 9 || y > 9) || (x < 0 || y < 0)) {
-            throw new IllegalArgumentException("Target out of Bounds");
-        }else{
-            player.sonar.target = new Location(x, y);
-        }
+    public void setTarget(Location location){
+       Board.isOnBoard(location);
+       player.sonar.target = location;
     }
 
     public int movesRemain() {
         return player.sonar.movesLeft;
     }
 
+    public boolean canUseSonar(){
+        int afloatShips = player.getOpponent().getAfloatShips().size();
+        int allShips = player.getOpponent().getAllShips().size();
+        return ((movesLeft < 1) && (afloatShips < allShips));
+    }
+
     public void useSonar() {
-        if (movesLeft < 1) {
+        if (canUseSonar()) {
             throw new IllegalArgumentException("No moves left");
         }
         else{
@@ -38,7 +41,7 @@ public class Sonar {
             sonarResults[3] = getSonarAt(player.sonar.target.getX()+1, player.sonar.target.getY()-1);
             // third row
             // put true for test case, actual code commented out
-            sonarResults[4] = true;//getSonarAt(player.sonar.target.getX()-2, player.sonar.target.getY());
+            sonarResults[4] = getSonarAt(player.sonar.target.getX()-2, player.sonar.target.getY());
             sonarResults[5] = getSonarAt(player.sonar.target.getX()-1, player.sonar.target.getY());
             sonarResults[6] = getSonarAt(player.sonar.target.getX(), player.sonar.target.getY());
             sonarResults[7] = getSonarAt(player.sonar.target.getX()+1, player.sonar.target.getY());
@@ -57,15 +60,18 @@ public class Sonar {
         return sonarResults;
     }
 
-    public boolean getSonarAt(int x, int y) {
-        if ((x > 9 || y > 9) || (x < 0 || y < 0)) {
+    public boolean getSonarAt(Location location) {
+        try{
+            Board.isOnBoard(location);
+        }
+        catch (IllegalArgumentException e) {
             return false;
         }
-        else{
-            if (player.getTheirBoard().getCellAt(x, y).getShip() == null) {
-                return false;
-            }
-            return true;
-        }
+
+        return (player.getTheirBoard().getCellAt(location.getX(), location.getY()).getShip() != null);
+    }
+
+    public boolean getSonarAt(int x, int y){
+        return this.getSonarAt(new Location(x, y));
     }
 }

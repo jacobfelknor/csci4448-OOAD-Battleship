@@ -10,13 +10,18 @@ public class SonarClassTest {
     private Player player2;
     private boolean result;
     private boolean[] resultList = new boolean[13];
+    private Location location1;
+    private Location location2;
+
 
     @Before
     public void setUp(){
         player = new Player();
         player2 = new Player();
         player.setOpponent(player2);
-        player.sonar.setTarget(5, 5);
+        player.sonar.setTarget(new Location(5,5));
+        location1 = new Location(5,4);
+        location2 = new Location(6, 4);
     }
 
     @Test
@@ -38,6 +43,7 @@ public class SonarClassTest {
     @Test
     public void noSonarLeft() {
         player.sonar.useSonar();
+        Assert.assertEquals(1, player.sonar.movesRemain());
         player.sonar.useSonar();
         Assert.assertEquals(0, player.sonar.movesRemain());
         try{
@@ -50,17 +56,18 @@ public class SonarClassTest {
 
     @Test
     public void sonarDetectsShip() {
-        result = player.sonar.getSonarAt(5,5);
+        result = player.sonar.getSonarAt(new Location(5,5));
         Assert.assertFalse(result);
     }
 
     @Test
     public void checkSonarResults() {
+        player2.placeShip("Minesweeper", location1, location2);
         player.sonar.useSonar();
         resultList = player.sonar.getSonarResults();
         for (int i = 0; i < resultList.length; i++){
             // added == 4 condition to verify process, not permanent
-            if (i == 4){
+            if ((i == 2) || (i == 3)){
                 Assert.assertEquals(true, resultList[i]);
             }else {
                 Assert.assertEquals(false, resultList[i]);
@@ -71,26 +78,21 @@ public class SonarClassTest {
     @Test
     public void checkTargetInBounds() {
         try{
-            player.sonar.setTarget(11,13);
-            player.sonar.setTarget(-1,-1);
-            player.sonar.setTarget(-1,3);
-            player.sonar.setTarget(3,-1);
-            player.sonar.setTarget(5,21);
-
+            player.sonar.setTarget(new Location(11,13));
             fail();
         }catch (IllegalArgumentException e) {
-            Assert.assertEquals("Target out of Bounds", e.getMessage());
+            Assert.assertEquals("Cell needs to exist within 10x10 grid", e.getMessage());
         }
     }
 
     @Test
     public void checkOutOfBoundsIsFalse() {
-        player.sonar.setTarget(0,0);
+        player.sonar.setTarget(new Location(0,0));
         player.sonar.useSonar();
         resultList = player.sonar.getSonarResults();
 
         Assert.assertEquals(false, resultList[0]);
-
-
     }
+
+
 }

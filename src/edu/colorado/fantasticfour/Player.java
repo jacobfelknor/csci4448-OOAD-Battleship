@@ -11,10 +11,6 @@ public class Player {
     private Player opponent;
     private List<Ship> ships;
 
-    public Sonar getSonarCount() {
-        return sonar;
-    }
-
     public Board getTheirBoard() {
         return opponent.board;
     }
@@ -24,6 +20,10 @@ public class Player {
 
     public List<Ship> getAllShips(){
         return ships;
+    }
+
+    public Player getOpponent(){
+        return this.opponent;
     }
 
     public List<Ship> getAfloatShips(){
