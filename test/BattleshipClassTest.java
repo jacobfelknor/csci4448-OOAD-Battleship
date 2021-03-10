@@ -44,7 +44,7 @@ public class BattleshipClassTest {
             player1.placeShip("Battleship", new Location(9,12), new Location(10,12), new Location(11,12), new Location(12,12));
             fail(); //never should get here
         }catch (IllegalArgumentException e){
-            Assert.assertEquals("Cell needs to exist within 10x10 grid", e.getMessage());
+            Assert.assertEquals("One or more locations do not exist on this board", e.getMessage());
         }
     }
 
@@ -63,12 +63,12 @@ public class BattleshipClassTest {
     public void testSunkCaptainsQLast() {
         player1.placeShip("Battleship", new Location(9,9), new Location(8,9), new Location(7,9), new Location(6,9));
         // Captain's quarters is at (8,9)
-        Assert.assertEquals("HIT", player2.takeShot(9,9));
-        Assert.assertEquals("HIT", player2.takeShot(7,9));
-        Assert.assertEquals("HIT", player2.takeShot(6,9));
+        Assert.assertEquals("HIT", player2.takeShot(new Location(9,9)));
+        Assert.assertEquals("HIT", player2.takeShot(new Location(7,9)));
+        Assert.assertEquals("HIT", player2.takeShot(new Location(6,9)));
         // attempt captains quarters
-        Assert.assertEquals("MISS", player2.takeShot(8,9));
-        Assert.assertEquals("SUNK", player2.takeShot(8,9));
+        Assert.assertEquals("MISS", player2.takeShot(new Location(8,9)));
+        Assert.assertEquals("SUNK", player2.takeShot(new Location(8,9)));
     }
 
     @Test
@@ -76,17 +76,17 @@ public class BattleshipClassTest {
         player1.placeShip("Battleship", new Location(9,9), new Location(8,9), new Location(7,9), new Location(6,9));
         // Captain's quarters is at (8,9)
         // attempt captains quarters
-        Assert.assertEquals("MISS", player2.takeShot(8,9));
-        Assert.assertEquals("SUNK", player2.takeShot(8,9));
+        Assert.assertEquals("MISS", player2.takeShot(new Location(8,9)));
+        Assert.assertEquals("SUNK", player2.takeShot(new Location(8,9)));
     }
 
     @Test
     public void testSunkCaptainsQMiddle() {
         player1.placeShip("Battleship", new Location(9,9), new Location(8,9), new Location(7,9), new Location(6,9));
         // Captain's quarters is at (8,9)
-        Assert.assertEquals("HIT", player2.takeShot(6,9));
+        Assert.assertEquals("HIT", player2.takeShot(new Location(6,9)));
         // attempt captains quarters
-        Assert.assertEquals("MISS", player2.takeShot(8,9));
-        Assert.assertEquals("SUNK", player2.takeShot(8,9));
+        Assert.assertEquals("MISS", player2.takeShot(new Location(8,9)));
+        Assert.assertEquals("SUNK", player2.takeShot(new Location(8,9)));
     }
 }

@@ -68,9 +68,9 @@ public class SonarClassTest {
         for (int i = 0; i < resultList.length; i++){
             // added == 4 condition to verify process, not permanent
             if ((i == 2) || (i == 3)){
-                Assert.assertEquals(true, resultList[i]);
+                Assert.assertTrue(resultList[i]);
             }else {
-                Assert.assertEquals(false, resultList[i]);
+                Assert.assertFalse(resultList[i]);
             }
         }
     }
@@ -81,7 +81,7 @@ public class SonarClassTest {
             player.sonar.setTarget(new Location(11,13));
             fail();
         }catch (IllegalArgumentException e) {
-            Assert.assertEquals("Cell needs to exist within 10x10 grid", e.getMessage());
+            Assert.assertEquals("Location does not exist on this board", e.getMessage());
         }
     }
 
@@ -91,7 +91,7 @@ public class SonarClassTest {
         player.sonar.useSonar();
         resultList = player.sonar.getSonarResults();
 
-        Assert.assertEquals(false, resultList[0]);
+        Assert.assertFalse(resultList[0]);
     }
 
 

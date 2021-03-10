@@ -1,15 +1,14 @@
 package edu.colorado.fantasticfour;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 public class Cell {
     private Location location;
     private Ship ship;
     public Cell(Location location) throws IllegalArgumentException{
-        if(Board.isOnBoard(location)){
-            this.location = location;
-            this.ship = null;
-        }
+        this.location = location;
+        this.ship = null;
     }
 
     public Location getLocation(){
@@ -49,11 +48,14 @@ public class Cell {
         return this.location.equals(c.location);
     }
 
-    /* NOTE: we should also override the hashCode(). Equal objects should generate equal hashes */
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(location);
+    }
 }
 
 class CellComparator implements Comparator<Cell>{
+
     @Override
     public int compare(Cell a, Cell b){
         if(a.getLocation().getX() == b.getLocation().getX()){

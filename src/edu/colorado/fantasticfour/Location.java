@@ -1,5 +1,9 @@
 package edu.colorado.fantasticfour;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class Location{
     private int x;
     private int y;
@@ -15,6 +19,18 @@ public class Location{
     public Location(int x, int y){
         this.x = x;
         this.y = y;
+    }
+
+    public static boolean inStraightLine(Location ... locations) throws IllegalArgumentException{
+        List<Integer> xs = new ArrayList<>();
+        List<Integer> ys = new ArrayList<>();
+        for(Location location : locations){
+            xs.add(location.getX());
+            ys.add(location.getY());
+        }
+        long xDistinct = xs.stream().distinct().count();
+        long yDistinct = ys.stream().distinct().count();
+        return xDistinct == 1 ^ yDistinct == 1;
     }
 
     @Override
@@ -44,4 +60,8 @@ public class Location{
 
     /* NOTE: we should also override the hashCode(). Equal objects should generate equal hashes */
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
 }

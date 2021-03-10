@@ -53,31 +53,31 @@ public class GameClassTest {
         placePlayerShips(player1);
         placePlayerShips(player2);
         // minesweeper, hit captainsQ on first try
-        Assert.assertEquals("SUNK", player1.takeShot(0,0));
-        Assert.assertEquals("HIT", player2.takeShot(0,1));
-        Assert.assertEquals("MISS", player1.takeShot(3,4));
-        Assert.assertEquals("SUNK", player2.takeShot(0,0));
+        Assert.assertEquals("SUNK", player1.takeShot(new Location(0,0)));
+        Assert.assertEquals("HIT", player2.takeShot(new Location(0,1)));
+        Assert.assertEquals("MISS", player1.takeShot(new Location(3,4)));
+        Assert.assertEquals("SUNK", player2.takeShot(new Location(0,0)));
         Assert.assertFalse(player2.mustSurrender());
         Assert.assertFalse(player1.mustSurrender());
         // destroyer
-        Assert.assertEquals("HIT", player1.takeShot(5,5));
-        Assert.assertEquals("HIT", player2.takeShot(5,5));
+        Assert.assertEquals("HIT", player1.takeShot(new Location(5,5)));
+        Assert.assertEquals("HIT", player2.takeShot(new Location(5,5)));
         // hit captainsQ
-        Assert.assertEquals("MISS", player1.takeShot(5,6));
-        Assert.assertEquals("MISS", player2.takeShot(5,6));
-        Assert.assertEquals("SUNK", player1.takeShot(5,6));
-        Assert.assertEquals("SUNK", player2.takeShot(5,6));
+        Assert.assertEquals("MISS", player1.takeShot(new Location(5,6)));
+        Assert.assertEquals("MISS", player2.takeShot(new Location(5,6)));
+        Assert.assertEquals("SUNK", player1.takeShot(new Location(5,6)));
+        Assert.assertEquals("SUNK", player2.takeShot(new Location(5,6)));
         Assert.assertFalse(player2.mustSurrender());
         Assert.assertFalse(player1.mustSurrender());
         //battleship
-        Assert.assertEquals("HIT", player1.takeShot(9,9));
-        Assert.assertEquals("HIT", player2.takeShot(9,9));
-        Assert.assertEquals("HIT", player1.takeShot(7,9));
-        Assert.assertEquals("HIT", player2.takeShot(7,9));
+        Assert.assertEquals("HIT", player1.takeShot(new Location(9,9)));
+        Assert.assertEquals("HIT", player2.takeShot(new Location(9,9)));
+        Assert.assertEquals("HIT", player1.takeShot(new Location(7,9)));
+        Assert.assertEquals("HIT", player2.takeShot(new Location(7,9)));
         // hit captainsQ
-        Assert.assertEquals("MISS", player1.takeShot(8,9));
-        Assert.assertEquals("MISS", player2.takeShot(8,9));
-        Assert.assertEquals("SUNK", player1.takeShot(8,9));
+        Assert.assertEquals("MISS", player1.takeShot(new Location(8,9)));
+        Assert.assertEquals("MISS", player2.takeShot(new Location(8,9)));
+        Assert.assertEquals("SUNK", player1.takeShot(new Location(8,9)));
         // player 1 should have won
         Assert.assertTrue(player2.mustSurrender());
         Assert.assertFalse(player1.mustSurrender());

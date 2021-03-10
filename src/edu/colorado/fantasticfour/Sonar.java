@@ -14,8 +14,11 @@ public class Sonar {
     }
 
     public void setTarget(Location location){
-       Board.isOnBoard(location);
-       player.sonar.target = location;
+       if (this.player.getMyBoard().isOnBoard(location)){
+           player.sonar.target = location;
+       }else{
+           throw new IllegalArgumentException("Location does not exist on this board");
+       }
     }
 
     public int movesRemain() {
@@ -61,14 +64,11 @@ public class Sonar {
     }
 
     public boolean getSonarAt(Location location) {
-        try{
-            Board.isOnBoard(location);
-        }
-        catch (IllegalArgumentException e) {
+        if(!player.getMyBoard().isOnBoard(location)){
             return false;
         }
 
-        return (player.getTheirBoard().getCellAt(location.getX(), location.getY()).getShip() != null);
+        return (player.getTheirBoard().getCellAt(location).getShip() != null);
     }
 
     public boolean getSonarAt(int x, int y){
