@@ -37,8 +37,16 @@ public class CellClassTest {
     }
 
     @Test
+    public void canHash(){
+        Cell cell1 = new Cell(new Location(5,7));
+        Cell cell2 = new Cell(new Location(5,7));
+        Assert.assertEquals(cell1.hashCode(), cell2.hashCode());
+    }
+
+    @Test
     public void toStringTest(){
         Cell cell = new Cell(new Location(7,8));
         Assert.assertEquals("Cell<Location<(7,8)>>", cell.toString());
     }
+
 }

@@ -70,8 +70,8 @@ public class Player {
         this.opponent = opp;
     }
 
-    public String takeShot(int x, int y) throws IllegalArgumentException{
-        return getTheirBoard().shootAt(x, y);
+    public String takeShot(Location location) throws IllegalArgumentException{
+        return getTheirBoard().shootAt(location);
     }
 
     public void placeShip(String name, Location @NotNull ... locations) throws IllegalArgumentException{
@@ -79,7 +79,12 @@ public class Player {
         if(locations.length != ship.getLength()){
             throw new IllegalArgumentException("Number of cells must match ship length");
         }
-        if(Board.inStraightLine(locations)){
+        for(Location location : locations){
+            if(!this.getMyBoard().isOnBoard(location)){
+                throw new IllegalArgumentException("One or more locations do not exist on this board");
+            }
+        }
+        if(Location.inStraightLine(locations)){
             List<Cell> shipCells = this.getMyBoard().getCellsAtLocations(locations);
             ship.setCoordinates(shipCells);
             for(Cell cell : shipCells){
