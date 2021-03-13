@@ -68,7 +68,7 @@ public class Sonar {
             return false;
         }
 
-        return (player.getTheirBoard().getCellAt(location).getShip() != null);
+        return player.getTheirBoard().getCellAt(location).hasObservers();
     }
 
     public boolean getSonarAt(int x, int y){

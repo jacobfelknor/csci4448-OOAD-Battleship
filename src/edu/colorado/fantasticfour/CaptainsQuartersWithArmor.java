@@ -12,7 +12,7 @@ public class CaptainsQuartersWithArmor implements CaptainsQuartersBehavior{
 
     @Override
     public boolean checkWithCaptainsQuarters(Ship ship, Cell cell) {
-        if(ship.getCoordinates().get(this.captainsQ).equals(cell)){
+        if(ship.gps.getCoordinates().get(this.captainsQ).equals(cell)){
             if(hasCaptainQArmor){
                 this.hasCaptainQArmor = false;
                 return false;

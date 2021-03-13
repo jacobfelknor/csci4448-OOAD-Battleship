@@ -7,6 +7,7 @@ public class Minesweeper extends Ship {
         this.length = 2;
         // a minesweeper has captains q in position 0
         this.captainsQuartersBehavior = new CaptainsQuartersNoArmor(0);
+        this.gps = new ShipGPS(this);
     }
 
 }

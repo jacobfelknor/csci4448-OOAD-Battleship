@@ -7,5 +7,6 @@ public class Destroyer extends Ship {
         this.length = 3;
         // a destroyer has captains q in position 1
         this.captainsQuartersBehavior = new CaptainsQuartersWithArmor(1);
+        this.gps = new ShipGPS(this);
     }
 }

@@ -43,21 +43,22 @@ public class Board {
 
     public String shootAt(Location location) throws IllegalArgumentException{
         Cell targetCell = this.getCellAt(location);
-        Ship cellShip = targetCell.getShip();
-        if(cellShip == null){
-            // target cell does not have a ship --> MISS
-            return "MISS";
-        }else{
-            if(cellShip.isCellAHit(targetCell)){
-                if(cellShip.isSunk()){
-                    return "SUNK";
-                }else{
-                    return "HIT";
-                }
-            }else{
-                return "MISS";
-            }
-        }
+        return targetCell.notifyObservers();
+
+//        if(cellShip == null){
+//            // target cell does not have a ship --> MISS
+//            return "MISS";
+//        }else{
+//            if(cellShip.isHit(targetCell)){
+//                if(cellShip.isSunk()){
+//                    return "SUNK";
+//                }else{
+//                    return "HIT";
+//                }
+//            }else{
+//                return "MISS";
+//            }
+//        }
     }
 
 }

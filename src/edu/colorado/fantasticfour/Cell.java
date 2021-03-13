@@ -1,26 +1,49 @@
 package edu.colorado.fantasticfour;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 
-public class Cell {
+public class Cell implements Subject{
+    private List<Observer> observers;
     private Location location;
-    private Ship ship;
     public Cell(Location location) throws IllegalArgumentException{
         this.location = location;
-        this.ship = null;
+        this.observers = new ArrayList<>();
     }
 
     public Location getLocation(){
         return this.location;
     }
 
-    public void setShip(Ship ship){
-        this.ship = ship;
+    @Override
+    public void addObserver(Observer o) {
+        this.observers.add(o);
     }
 
-    public Ship getShip(){
-        return this.ship;
+    @Override
+    public void removeObserver(Observer o) {
+        this.observers.remove(o);
+    }
+
+    @Override
+    public boolean hasObservers() {
+        return this.observers.size() > 0;
+    }
+
+    @Override
+    public String notifyObservers() {
+        List<String> results = new ArrayList<>();
+        for(Observer o : this.observers){
+            results.add(o.update(this));
+        }
+        if(results.contains("SUNK")){
+            return "SUNK";
+        }else if(results.contains("HIT")){
+            return "HIT";
+        }
+        return "MISS";
     }
 
     @Override

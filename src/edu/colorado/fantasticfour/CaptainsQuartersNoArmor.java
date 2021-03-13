@@ -8,7 +8,7 @@ public class CaptainsQuartersNoArmor implements CaptainsQuartersBehavior{
     }
     @Override
     public boolean checkWithCaptainsQuarters(Ship ship, Cell cell) {
-        if(ship.getCoordinates().get(this.captainsQ).equals(cell)){
+        if(ship.gps.getCoordinates().get(this.captainsQ).equals(cell)){
             ship.sunk = true;
             return true;
         }
