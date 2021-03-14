@@ -4,15 +4,21 @@ import java.util.List;
 
 public class CaptainsQuartersWithArmor implements CaptainsQuartersBehavior{
     private boolean hasCaptainQArmor = true;
-    private int captainsQ;
+    private Location captainsQ;
+    private Ship ship;
 
-    public CaptainsQuartersWithArmor(int captainsQ){
-        this.captainsQ = captainsQ;
+    public CaptainsQuartersWithArmor(Ship ship){
+        this.ship = ship;
     }
 
     @Override
-    public boolean checkWithCaptainsQuarters(Ship ship, Cell cell) {
-        if(ship.gps.getCoordinates().get(this.captainsQ).equals(cell)){
+    public void setCaptainsQuarters(Location location) {
+        this.captainsQ = location;
+    }
+
+    @Override
+    public boolean checkWithCaptainsQuarters(Location location) {
+        if(location.equals(this.captainsQ)){
             if(hasCaptainQArmor){
                 this.hasCaptainQArmor = false;
                 return false;

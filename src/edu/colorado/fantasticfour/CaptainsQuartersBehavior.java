@@ -1,7 +1,8 @@
 package edu.colorado.fantasticfour;
 
 public interface CaptainsQuartersBehavior {
-    boolean checkWithCaptainsQuarters(Ship ship, Cell cell);
+    void setCaptainsQuarters(Location location);
+    boolean checkWithCaptainsQuarters(Location location);
 }
 
 

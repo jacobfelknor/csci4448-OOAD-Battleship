@@ -25,44 +25,32 @@ public class DestroyerClassTest {
 
     @Test
     public void canPlaceShip() {
-        player1.placeShip("Destroyer", new Location(3,0), new Location(3,1), new Location(3,2));
-    }
-
-    @Test
-    public void canNotPlaceShipInBadLine() {
-        try {
-            player1.placeShip("Destroyer", new Location(4,0), new Location(3,1), new Location(7,9));
-            fail(); //never should get here
-        }catch (IllegalArgumentException e){
-            Assert.assertEquals("Cells are not on a straight line", e.getMessage());
-        }
-
+        player1.placeShip("Destroyer", new Location(3,1), "E");
     }
 
     @Test
     public void canNotPlaceShipOffBoard() {
         try {
-            player1.placeShip("Destroyer", new Location(9,12), new Location(10,12), new Location(11,12));
+            player1.placeShip("Destroyer", new Location(0,0), "N");
             fail(); //never should get here
         }catch (IllegalArgumentException e){
-            Assert.assertEquals("One or more locations do not exist on this board", e.getMessage());
+            Assert.assertTrue(e.getMessage().startsWith("One or more locations do not exist on this board"));
         }
     }
 
     @Test
-    public void canNotPlaceShipOfWrongLength() {
+    public void canNotGiveBadOrientation(){
         try {
-            // this is a Destroyer. Should need 3 Cells
-            player1.placeShip("Destroyer", new Location(3,0), new Location(3,1));
+            player1.placeShip("Destroyer", new Location(0,0), "Z");
             fail(); //never should get here
         }catch (IllegalArgumentException e){
-            Assert.assertEquals("Number of cells must match ship length", e.getMessage());
+            Assert.assertTrue(e.getMessage().startsWith("Unknown orientation. Must be N,S,E, or W"));
         }
     }
 
     @Test
     public void testSunkCaptainsQLast() {
-        player1.placeShip("Destroyer", new Location(9,9), new Location(8,9), new Location(7,9));
+        player1.placeShip("Destroyer", new Location(8,9), "E");
         // Captain's quarters is at (8,9)
         Assert.assertEquals("HIT", player2.takeShot(new Location(9,9)));
         Assert.assertEquals("HIT", player2.takeShot(new Location(7,9)));
@@ -73,7 +61,7 @@ public class DestroyerClassTest {
 
     @Test
     public void testSunkCaptainsQFirst() {
-        player1.placeShip("Destroyer", new Location(9,9), new Location(8,9), new Location(7,9));
+        player1.placeShip("Destroyer", new Location(8,9), "E");
         // Captain's quarters is at (8,9)
         // attempt captains quarters
         Assert.assertEquals("MISS", player2.takeShot(new Location(8,9)));
@@ -82,7 +70,7 @@ public class DestroyerClassTest {
 
     @Test
     public void testSunkCaptainsQMiddle() {
-        player1.placeShip("Destroyer", new Location(9,9), new Location(8,9), new Location(7,9));
+        player1.placeShip("Destroyer", new Location(8,9), "E");
         // Captain's quarters is at (8,9)
         Assert.assertEquals("HIT", player2.takeShot(new Location(7,9)));
         // attempt captains quarters

@@ -1,14 +1,20 @@
 package edu.colorado.fantasticfour;
 
 public class CaptainsQuartersNoArmor implements CaptainsQuartersBehavior{
-    private int captainsQ;
-
-    public CaptainsQuartersNoArmor(int captainsQ){
-        this.captainsQ = captainsQ;
+    private Location captainsQ;
+    private Ship ship;
+    public CaptainsQuartersNoArmor(Ship ship){
+        this.ship = ship;
     }
+
     @Override
-    public boolean checkWithCaptainsQuarters(Ship ship, Cell cell) {
-        if(ship.gps.getCoordinates().get(this.captainsQ).equals(cell)){
+    public void setCaptainsQuarters(Location location) {
+        this.captainsQ = location;
+    }
+
+    @Override
+    public boolean checkWithCaptainsQuarters(Location location) {
+        if(location.equals(this.captainsQ)){
             ship.sunk = true;
             return true;
         }

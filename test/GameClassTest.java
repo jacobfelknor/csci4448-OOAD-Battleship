@@ -16,11 +16,11 @@ public class GameClassTest {
 
     public void placePlayerShips(Player player) {
         // captainsQ at 0,0
-        player.placeShip("Minesweeper", new Location(0,0), new Location(0,1));
+        player.placeShip("Minesweeper", new Location(0,0), "S");
         // captainsQ at 5,6
-        player.placeShip("Destroyer", new Location(5,5), new Location(5,6), new Location(5,7));
+        player.placeShip("Destroyer", new Location(5,6), "S");
         // captainsQ at 8,9
-        player.placeShip("Battleship", new Location(9,9), new Location(8,9), new Location(7,9), new Location(6,9));
+        player.placeShip("Battleship", new Location(8,9), "E");
     }
 
     @Before

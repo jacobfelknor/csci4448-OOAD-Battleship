@@ -2,6 +2,7 @@ package edu.colorado.fantasticfour;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,23 +75,17 @@ public class Player {
         return getTheirBoard().shootAt(location);
     }
 
-    public void placeShip(String name, Location @NotNull ... locations) throws IllegalArgumentException{
+    public void placeShip(String name, Location captainsQ, String orientation) throws IllegalArgumentException{
         Ship ship = this.getShipByName(name);
-        if(locations.length != ship.getLength()){
-            throw new IllegalArgumentException("Number of cells must match ship length");
-        }
-        // calculate Ship locations here, using a ShipDimension class
+        ship.setCaptainsQuarters(captainsQ);
+        List<Location> locations = ship.getDimensions(captainsQ, orientation);
         for(Location location : locations){
             if(!this.getMyBoard().isOnBoard(location)){
-                throw new IllegalArgumentException("One or more locations do not exist on this board");
+                throw new IllegalArgumentException("One or more locations do not exist on this board " + locations);
             }
         }
-        if(Location.inStraightLine(locations)){
-            List<Cell> shipCells = this.getMyBoard().getCellsAtLocations(locations);
-            ship.gps.setCoordinates(shipCells);
-        }else{
-            throw new IllegalArgumentException("Cells are not on a straight line");
-        }
+        List<Cell> shipCells = this.getMyBoard().getCellsAtLocations(locations);
+        ship.gps.setCoordinates(shipCells);
     }
 
 }

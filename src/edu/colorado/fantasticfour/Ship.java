@@ -4,6 +4,8 @@ package edu.colorado.fantasticfour;
 
 // This is the  baseclass for your ship.  Modify accordingly
 
+import java.util.List;
+
 public abstract class Ship {
     protected String name;
     protected int length;
@@ -24,7 +26,7 @@ public abstract class Ship {
     }
 
     public String resultOfHit(Cell cell) {
-        if(this.captainsQuartersBehavior.checkWithCaptainsQuarters(this, cell)){
+        if(this.captainsQuartersBehavior.checkWithCaptainsQuarters(cell.getLocation())){
             if(this.isSunk()){
                 return "SUNK";
             }else{
@@ -34,6 +36,11 @@ public abstract class Ship {
         return "MISS";
     }
 
+    public void setCaptainsQuarters(Location captainsQuarters){
+        this.captainsQuartersBehavior.setCaptainsQuarters(captainsQuarters);
+    }
+
+    public abstract List<Location> getDimensions(Location captainsQ, String orientation);
 
 
 }

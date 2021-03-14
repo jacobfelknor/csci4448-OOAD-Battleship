@@ -62,7 +62,7 @@ public class SonarClassTest {
 
     @Test
     public void checkSonarResults() {
-        player2.placeShip("Minesweeper", location1, location2);
+        player2.placeShip("Minesweeper", location1, "W");
         player.sonar.useSonar();
         resultList = player.sonar.getSonarResults();
         for (int i = 0; i < resultList.length; i++){

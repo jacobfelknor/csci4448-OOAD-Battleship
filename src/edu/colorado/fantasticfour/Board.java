@@ -18,6 +18,7 @@ public class Board {
             }
 
         }
+        assert grid.size() == 100;
         this.player = player;
     }
 
@@ -29,7 +30,7 @@ public class Board {
         return this.grid.get(location);
     }
 
-    public List<Cell> getCellsAtLocations(Location ... locations){
+    public List<Cell> getCellsAtLocations(List<Location> locations){
         List<Cell> cells = new ArrayList<>();
         for(Location location : locations){
             cells.add(this.getCellAt(location));
@@ -44,21 +45,6 @@ public class Board {
     public String shootAt(Location location) throws IllegalArgumentException{
         Cell targetCell = this.getCellAt(location);
         return targetCell.notifyObservers();
-
-//        if(cellShip == null){
-//            // target cell does not have a ship --> MISS
-//            return "MISS";
-//        }else{
-//            if(cellShip.isHit(targetCell)){
-//                if(cellShip.isSunk()){
-//                    return "SUNK";
-//                }else{
-//                    return "HIT";
-//                }
-//            }else{
-//                return "MISS";
-//            }
-//        }
     }
 
 }

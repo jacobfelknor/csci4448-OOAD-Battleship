@@ -21,22 +21,31 @@ public class Location{
         this.y = y;
     }
 
-    public static boolean inStraightLine(Location ... locations) throws IllegalArgumentException{
-        List<Integer> xs = new ArrayList<>();
-        List<Integer> ys = new ArrayList<>();
-        for(Location location : locations){
-            xs.add(location.getX());
-            ys.add(location.getY());
-        }
-        long xDistinct = xs.stream().distinct().count();
-        long yDistinct = ys.stream().distinct().count();
-        return xDistinct == 1 ^ yDistinct == 1;
+    public static Location iHat(){
+        return new Location(1,0);
+    }
+
+    public static Location jHat(){
+        return new Location(0, 1);
     }
 
     @Override
     public String toString(){
         return "Location<(" + this.getX() + "," + this.getY() + ")>";
     }
+
+    public Location plus(Location l){
+        return new Location(this.getX() + l.getX(), this.getY() + l.getY());
+    }
+
+    public Location minus(Location l){
+        return new Location(this.getX() - l.getX(), this.getY() - l.getY());
+    }
+
+    public Location times(int x){
+        return new Location(this.getX()*x, this.getY()*x);
+    }
+
 
     @Override
     public boolean equals(Object o){
