@@ -42,7 +42,7 @@ public class CellClassTest {
     @Test
     public void toStringTest(){
         Cell cell = new Cell(new Location(7,8));
-        Assert.assertEquals("Cell<Location<(7,8)>>", cell.toString());
+        Assert.assertEquals("Cell<Location<(7,8,0)>>", cell.toString());
     }
 
 }
