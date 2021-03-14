@@ -27,7 +27,9 @@ public class Destroyer extends Ship {
                 dimensions.add(captainsQ.plus(Location.iHat()));
                 dimensions.add(captainsQ.minus(Location.iHat()));
             }
-            default -> throw new IllegalArgumentException("Unknown orientation. Must be N,S,E, or W");
+            default -> throw new IllegalArgumentException(
+                    "Unknown orientation. Must be N,S,E, or W. '" + orientation + "' given"
+            );
         }
         assert dimensions.size() == this.getLength();
         return dimensions;

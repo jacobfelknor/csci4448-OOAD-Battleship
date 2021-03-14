@@ -19,6 +19,8 @@ public class GameClassTest {
         player.placeShip("Destroyer", new Location(5,6), "S");
         // captainsQ at 8,9
         player.placeShip("Battleship", new Location(8,9), "E");
+        // captainsQ at (0,9)
+        player.placeShip("Submarine", new Location(0,9), "WS");
     }
 
     @Before
@@ -35,10 +37,10 @@ public class GameClassTest {
     }
 
     @Test
-    public void canGetPlayers(){
+    public void canNotGetBadPlayers(){
         // this should throw exception
         try {
-            Player player3 = game.getPlayer("3");
+            game.getPlayer("3");
             fail(); // should never be reached
         } catch (IllegalArgumentException e){
             Assert.assertEquals("Game only has player '1' and '2'", e.getMessage());
@@ -76,6 +78,12 @@ public class GameClassTest {
         Assert.assertEquals("MISS", player1.takeShot(new Location(8,9)));
         Assert.assertEquals("MISS", player2.takeShot(new Location(8,9)));
         Assert.assertEquals("SUNK", player1.takeShot(new Location(8,9)));
+        // submarine
+        Assert.assertEquals("HIT", player2.takeShot(new Location(1,9)));
+        Assert.assertEquals("MISS", player1.takeShot(new Location(0,9)));
+        Assert.assertEquals("MISS", player2.takeShot(new Location(0,9)));
+        // hit captainsQ
+        Assert.assertEquals("SUNK", player1.takeShot(new Location(0,9)));
         // player 1 should have won
         Assert.assertTrue(player2.mustSurrender());
         Assert.assertFalse(player1.mustSurrender());

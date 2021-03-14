@@ -1,11 +1,8 @@
 package edu.colorado.fantasticfour.game;
 
 import edu.colorado.fantasticfour.location.Location;
+import edu.colorado.fantasticfour.ship.*;
 import edu.colorado.fantasticfour.weapons.Sonar;
-import edu.colorado.fantasticfour.ship.Battleship;
-import edu.colorado.fantasticfour.ship.Destroyer;
-import edu.colorado.fantasticfour.ship.Minesweeper;
-import edu.colorado.fantasticfour.ship.Ship;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,7 +62,8 @@ public class Player {
         this.ships = List.of(
                 new Minesweeper(),
                 new Destroyer(),
-                new Battleship()
+                new Battleship(),
+                new Submarine()
         );
         this.board = new Board(this);
         this.sonar = new Sonar(this);

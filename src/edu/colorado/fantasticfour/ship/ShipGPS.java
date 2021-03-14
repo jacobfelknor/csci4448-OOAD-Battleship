@@ -1,9 +1,7 @@
 package edu.colorado.fantasticfour.ship;
 
 import edu.colorado.fantasticfour.game.Cell;
-import edu.colorado.fantasticfour.game.CellComparator;
 import edu.colorado.fantasticfour.observer.Observer;
-import edu.colorado.fantasticfour.ship.Ship;
 
 import java.util.List;
 
@@ -28,7 +26,6 @@ public class ShipGPS implements Observer {
         for(Cell cell : cells){
             cell.addObserver(this);
         }
-        cells.sort(new CellComparator());
         this.coordinates = cells;
     }
 

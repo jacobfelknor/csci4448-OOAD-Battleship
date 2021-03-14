@@ -36,7 +36,7 @@ public class PlayerClassTest {
 
     @Test
     public void canGetAllShips(){
-        Assert.assertEquals(3, player1.getAllShips().size());
+        Assert.assertEquals(4, player1.getAllShips().size());
     }
 
     @Test
