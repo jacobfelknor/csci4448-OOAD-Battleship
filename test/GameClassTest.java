@@ -1,11 +1,9 @@
-import edu.colorado.fantasticfour.*;
+import edu.colorado.fantasticfour.game.Game;
+import edu.colorado.fantasticfour.game.Player;
+import edu.colorado.fantasticfour.location.Location;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.Assert;
-
-import java.util.HashMap;
-import java.util.List;
 
 import static junit.framework.TestCase.fail;
 

@@ -1,6 +1,6 @@
-package edu.colorado.fantasticfour;
+package edu.colorado.fantasticfour.ship;
 
-import java.util.List;
+import edu.colorado.fantasticfour.location.Location;
 
 public class CaptainsQuartersWithArmor implements CaptainsQuartersBehavior{
     private boolean hasCaptainQArmor = true;

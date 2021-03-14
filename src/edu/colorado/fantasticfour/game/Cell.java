@@ -1,11 +1,14 @@
-package edu.colorado.fantasticfour;
+package edu.colorado.fantasticfour.game;
+
+import edu.colorado.fantasticfour.location.Location;
+import edu.colorado.fantasticfour.observer.Observer;
+import edu.colorado.fantasticfour.observer.Subject;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-public class Cell implements Subject{
+public class Cell implements Subject {
     private List<Observer> observers;
     private Location location;
     public Cell(Location location) throws IllegalArgumentException{
@@ -74,20 +77,5 @@ public class Cell implements Subject{
     @Override
     public int hashCode() {
         return Objects.hash(location);
-    }
-}
-
-class CellComparator implements Comparator<Cell>{
-
-    @Override
-    public int compare(Cell a, Cell b){
-        if(a.getLocation().getX() == b.getLocation().getX()){
-            // if x's are equal, sort by y's
-            return a.getLocation().getY() - b.getLocation().getY();
-        }else{
-            // otherwise, sort by x's (y's must be equal)
-            assert a.getLocation().getY() == b.getLocation().getY();
-            return a.getLocation().getX() - b.getLocation().getX();
-        }
     }
 }

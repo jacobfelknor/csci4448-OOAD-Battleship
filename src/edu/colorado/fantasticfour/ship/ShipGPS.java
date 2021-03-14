@@ -1,8 +1,13 @@
-package edu.colorado.fantasticfour;
+package edu.colorado.fantasticfour.ship;
+
+import edu.colorado.fantasticfour.game.Cell;
+import edu.colorado.fantasticfour.game.CellComparator;
+import edu.colorado.fantasticfour.observer.Observer;
+import edu.colorado.fantasticfour.ship.Ship;
 
 import java.util.List;
 
-public class ShipGPS implements Observer{
+public class ShipGPS implements Observer {
     private List<Cell> coordinates;
     private Ship owner;
 

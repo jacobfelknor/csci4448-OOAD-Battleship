@@ -1,11 +1,7 @@
-import edu.colorado.fantasticfour.Cell;
-import edu.colorado.fantasticfour.Location;
+import edu.colorado.fantasticfour.game.Cell;
+import edu.colorado.fantasticfour.location.Location;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class CellClassTest {
 

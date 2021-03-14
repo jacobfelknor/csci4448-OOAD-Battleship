@@ -1,8 +1,12 @@
-package edu.colorado.fantasticfour;
+package edu.colorado.fantasticfour.game;
 
-import org.jetbrains.annotations.NotNull;
+import edu.colorado.fantasticfour.location.Location;
+import edu.colorado.fantasticfour.weapons.Sonar;
+import edu.colorado.fantasticfour.ship.Battleship;
+import edu.colorado.fantasticfour.ship.Destroyer;
+import edu.colorado.fantasticfour.ship.Minesweeper;
+import edu.colorado.fantasticfour.ship.Ship;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +32,7 @@ public class Player {
     }
 
     public List<Ship> getAfloatShips(){
-        return ships.stream().filter(ship -> !ship.isSunk() && ship.gps.getCoordinates() != null).collect(Collectors.toList());
+        return ships.stream().filter(ship -> !ship.isSunk() && ship.getGps().getCoordinates() != null).collect(Collectors.toList());
     }
 
     public boolean mustSurrender(){
@@ -36,7 +40,7 @@ public class Player {
     }
 
     public List<Ship> getPlacedShips(){
-        return ships.stream().filter(ship -> ship.gps.getCoordinates() != null).collect(Collectors.toList());
+        return ships.stream().filter(ship -> ship.getGps().getCoordinates() != null).collect(Collectors.toList());
     }
 
     public Ship getShipByName(String name) throws IllegalArgumentException{
@@ -50,7 +54,7 @@ public class Player {
 
     public Ship getShipAt(Location location) throws IllegalArgumentException{
         for(Ship ship : getPlacedShips()){
-           if(ship.gps.getCoordinates().contains(new Cell(location))){
+           if(ship.getGps().getCoordinates().contains(new Cell(location))){
                return ship;
            }
         }
@@ -85,7 +89,8 @@ public class Player {
             }
         }
         List<Cell> shipCells = this.getMyBoard().getCellsAtLocations(locations);
-        ship.gps.setCoordinates(shipCells);
+        ship.getGps().setCoordinates(shipCells);
     }
+
 
 }

@@ -1,4 +1,8 @@
-import edu.colorado.fantasticfour.*;
+import edu.colorado.fantasticfour.game.Game;
+import edu.colorado.fantasticfour.game.Player;
+import edu.colorado.fantasticfour.location.Location;
+import edu.colorado.fantasticfour.ship.Minesweeper;
+import edu.colorado.fantasticfour.ship.Ship;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

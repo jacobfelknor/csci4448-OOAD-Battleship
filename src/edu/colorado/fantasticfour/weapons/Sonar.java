@@ -1,4 +1,7 @@
-package edu.colorado.fantasticfour;
+package edu.colorado.fantasticfour.weapons;
+
+import edu.colorado.fantasticfour.location.Location;
+import edu.colorado.fantasticfour.game.Player;
 
 public class Sonar {
     public int movesLeft = 2;

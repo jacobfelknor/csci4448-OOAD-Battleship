@@ -1,4 +1,4 @@
-package edu.colorado.fantasticfour;
+package edu.colorado.fantasticfour.observer;
 
 public interface Subject {
     void addObserver(Observer o);

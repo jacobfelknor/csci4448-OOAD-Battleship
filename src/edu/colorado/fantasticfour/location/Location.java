@@ -1,7 +1,5 @@
-package edu.colorado.fantasticfour;
+package edu.colorado.fantasticfour.location;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Location{

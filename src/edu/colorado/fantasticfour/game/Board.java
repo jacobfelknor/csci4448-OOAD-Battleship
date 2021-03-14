@@ -1,4 +1,6 @@
-package edu.colorado.fantasticfour;
+package edu.colorado.fantasticfour.game;
+
+import edu.colorado.fantasticfour.location.Location;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,5 @@
-import edu.colorado.fantasticfour.*;
+import edu.colorado.fantasticfour.game.Player;
+import edu.colorado.fantasticfour.location.Location;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

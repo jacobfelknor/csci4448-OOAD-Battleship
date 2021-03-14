@@ -1,8 +1,11 @@
-package edu.colorado.fantasticfour;
+package edu.colorado.fantasticfour.ship;
 
 //import org.jetbrains.annotations.NotNull;
 
 // This is the  baseclass for your ship.  Modify accordingly
+
+import edu.colorado.fantasticfour.game.Cell;
+import edu.colorado.fantasticfour.location.Location;
 
 import java.util.List;
 
@@ -19,6 +22,10 @@ public abstract class Ship {
 
     public String getName() {
         return name;
+    }
+
+    public ShipGPS getGps(){
+        return this.gps;
     }
 
     public boolean isSunk(){
