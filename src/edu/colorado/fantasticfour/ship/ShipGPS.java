@@ -21,8 +21,12 @@ public class ShipGPS implements Observer {
     }
 
     public void setCoordinates(List<Cell> cells){
-        // sort coordinates by location
-        // Result is a consistent ordering of cells list regardless of order given
+        // Need to clear any of its previous subscriptions if they exist
+        if(this.coordinates != null){
+            for(Cell cell : this.coordinates){
+                cell.removeObserver(this);
+            }
+        }
         for(Cell cell : cells){
             cell.addObserver(this);
         }

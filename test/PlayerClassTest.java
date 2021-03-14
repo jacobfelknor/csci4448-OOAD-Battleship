@@ -35,6 +35,22 @@ public class PlayerClassTest {
     }
 
     @Test
+    public void canPlayerPlaceShip(){
+        player1.placeShip("Battleship", new Location(8,9), "E");
+    }
+
+    @Test
+    public void canPlayerNotPlaceTwoShipsInSameCell(){
+//      (6,9), (7,9), (8,9), (9,9)
+        player1.placeShip("Battleship", new Location(8,9), "E");
+        try{
+            player1.placeShip("Minesweeper", new Location(5,9), "W");
+        }catch (IllegalStateException e){
+            Assert.assertEquals("Cell already has a Ship observer. Are Ships colliding?", e.getMessage());
+        }
+    }
+
+    @Test
     public void canGetAllShips(){
         Assert.assertEquals(4, player1.getAllShips().size());
     }

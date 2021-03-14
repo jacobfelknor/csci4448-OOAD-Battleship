@@ -22,6 +22,11 @@ public class Cell implements Subject {
 
     @Override
     public void addObserver(Observer o) {
+        // In this specific use case, only makes sense to have one observer (being the ship that is here)
+        // no two ships can exist in the same cell.
+        if(this.observers.size() == 1){
+            throw new IllegalStateException("Cell already has a Ship observer. Are Ships colliding?");
+        }
         this.observers.add(o);
     }
 
