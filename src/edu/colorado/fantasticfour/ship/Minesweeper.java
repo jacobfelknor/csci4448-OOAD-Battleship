@@ -16,6 +16,7 @@ public class Minesweeper extends Ship {
 
     @Override
     public List<Location> getDimensions(Location captainsQ, String orientation) {
+        assert captainsQ.getZ() == 0; // a minesweeper must be on surface
         List<Location> dimensions = new ArrayList<>();
         dimensions.add(captainsQ);
         switch (orientation) {

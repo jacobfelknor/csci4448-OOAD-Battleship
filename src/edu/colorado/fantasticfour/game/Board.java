@@ -44,9 +44,4 @@ public class Board {
         return player;
     }
 
-    public String shootAt(Location location) throws IllegalArgumentException{
-        Cell targetCell = this.getCellAt(location);
-        return targetCell.notifyObservers();
-    }
-
 }

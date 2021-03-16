@@ -2,7 +2,9 @@ package edu.colorado.fantasticfour.game;
 
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.ship.*;
+import edu.colorado.fantasticfour.weapons.Bomb;
 import edu.colorado.fantasticfour.weapons.Sonar;
+import edu.colorado.fantasticfour.weapons.Weapon;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +14,19 @@ public class Player {
     private Board board;
     private Player opponent;
     private List<Ship> ships;
+    private Weapon attackWeapon;
+
+    public Player() {
+        this.ships = List.of(
+                new Minesweeper(),
+                new Destroyer(),
+                new Battleship(),
+                new Submarine()
+        );
+        this.board = new Board(this);
+        this.sonar = new Sonar(this);
+        this.attackWeapon = new Bomb(this); // the Bomb is the default Weapon
+    }
 
     public Board getTheirBoard() {
         return opponent.board;
@@ -58,23 +73,12 @@ public class Player {
         throw new IllegalArgumentException("Ship not found");
     }
 
-    public Player() {
-        this.ships = List.of(
-                new Minesweeper(),
-                new Destroyer(),
-                new Battleship(),
-                new Submarine()
-        );
-        this.board = new Board(this);
-        this.sonar = new Sonar(this);
-    }
-
     public void setOpponent(Player opp){
         this.opponent = opp;
     }
 
     public String takeShot(Location location) throws IllegalArgumentException{
-        return getTheirBoard().shootAt(location);
+        return this.attackWeapon.useAt(location);
     }
 
     public void placeShip(String name, Location captainsQ, String orientation) throws IllegalArgumentException{
