@@ -10,22 +10,29 @@ import java.util.Map;
 public class Board {
     private int gridCol = 10;
     private int gridRow = 10;
+    private int gridLayers = 2;
     private Map<Location, Cell> grid = new HashMap<>();
     private Player player;
 
     public Board(Player player){
         for (int i = 0; i < gridCol; i++){
-            for (int j = 0 ; j < gridRow; j++){
-                    grid.put(new Location(i, j), new Cell(new Location(i,j)));
+            for (int j = 0; j < gridRow; j++){
+                for(int k = 0; k < gridLayers; k++){
+                    grid.put(new Location(i, j, -1*k), new Cell(new Location(i,j, -1*k)));
+                }
             }
 
         }
-        assert grid.size() == 100;
+        assert grid.size() == gridCol*gridRow*gridLayers;
         this.player = player;
     }
 
     public boolean isOnBoard(Location location){
         return this.grid.containsKey(location);
+    }
+
+    public boolean isOnSurface(Location location){
+        return location.getZ() == 0;
     }
 
     public Cell getCellAt(Location location){

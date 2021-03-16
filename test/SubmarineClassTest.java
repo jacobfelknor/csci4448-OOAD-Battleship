@@ -33,10 +33,11 @@ public class SubmarineClassTest {
         player1.placeShip("Submarine", new Location(3,2), "ES");
         player1.placeShip("Submarine", new Location(0,0), "WN");
         player1.placeShip("Submarine", new Location(3,9), "WS");
-        player1.placeShip("Submarine", new Location(5,6), "NW");
-        player1.placeShip("Submarine", new Location(5,6), "NE");
-        player1.placeShip("Submarine", new Location(5,6), "SE");
-        player1.placeShip("Submarine", new Location(5,6), "SW");
+        // for the remaining, ensure they can be placed under water
+        player1.placeShip("Submarine", new Location(5,6, -1), "NW");
+        player1.placeShip("Submarine", new Location(5,6, -1), "NE");
+        player1.placeShip("Submarine", new Location(5,6, -1), "SE");
+        player1.placeShip("Submarine", new Location(5,6, -1), "SW");
     }
 
     @Test
