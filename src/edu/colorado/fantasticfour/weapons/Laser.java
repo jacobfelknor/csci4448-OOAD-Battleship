@@ -18,15 +18,24 @@ public class Laser extends Weapon{
         return (afloatShips < allShips);
     }
 
+
     @Override
     public String useAt(Location location) {
         //x,y,z:,k
         if (canUseLaser()){
+
             Cell targetCell = this.owner.getTheirBoard().getCellAt(location);
 
-            //if (this.owner.getTheirBoard().isSubSurface(location) || this.owner.getTheirBoard().isOnSurface(location)) {
+            if (this.owner.getTheirBoard().isOnSurface(location)) {
+                targetCell = this.owner.getTheirBoard().getCellAt(location);
+                targetCell.notifyObservers();
+            }
+            if(this.owner.getTheirBoard().isSubSurface(location)){
+                targetCell = this.owner.getTheirBoard().getCellAt(location);
+                targetCell.notifyObservers();
+            }
             //throw new IllegalArgumentException("A Bomb can only be used on the surface. Location given was " + location);
-            targetCell.notifyObservers();
+            //targetCell.notifyObservers();
 
             //}
             //Cell targetCell = this.owner.getTheirBoard().getCellAt(location);

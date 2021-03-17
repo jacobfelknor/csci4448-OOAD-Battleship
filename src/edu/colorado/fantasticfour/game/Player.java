@@ -30,9 +30,10 @@ public class Player {
         this.board = new Board(this);
 
         this.attackWeapon = new Bomb(this); // the Bomb is the default Weapon
-        this.laser = new Laser(this);
+        //this.laser = new Laser(this);
         this.sonar = new Sonar(this);
     }
+
 
     public Board getTheirBoard() {
         return opponent.board;
