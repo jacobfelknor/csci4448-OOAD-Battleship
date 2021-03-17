@@ -9,6 +9,5 @@ public abstract class Weapon {
     public Weapon(Player owner){
         this.owner = owner;
     }
-
     public abstract String useAt(Location location);
 }

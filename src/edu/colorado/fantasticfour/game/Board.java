@@ -26,13 +26,18 @@ public class Board {
         assert grid.size() == gridCol*gridRow*gridLayers;
         this.player = player;
     }
-
+    //i,j,k:false
+    //i,j,k:true
     public boolean isOnBoard(Location location){
         return this.grid.containsKey(location);
     }
 
     public boolean isOnSurface(Location location){
         return location.getZ() == 0;
+    }
+
+    public boolean isSubSurface(Location location){
+        return location.getZ() == 1;
     }
 
     public Cell getCellAt(Location location){
