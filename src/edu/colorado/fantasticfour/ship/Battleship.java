@@ -45,6 +45,7 @@ public class Battleship extends Ship {
             );
         }
         assert dimensions.size() == this.getLength();
+        this.orientation = orientation;
         return dimensions;
     }
 }

@@ -1,0 +1,81 @@
+import edu.colorado.fantasticfour.game.Cell;
+import edu.colorado.fantasticfour.game.Game;
+import edu.colorado.fantasticfour.game.Player;
+import edu.colorado.fantasticfour.location.Location;
+import edu.colorado.fantasticfour.ship.Ship;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MoveFleetCommandTest {
+    Game game;
+    Player player;
+
+    @Before
+    public void setUp(){
+        game = new Game();
+        player = game.getPlayer("1");
+    }
+
+    public void generateCaseAllShipsCanMove(){
+        player.placeShip("Battleship", new Location(1,9), "W");
+        player.placeShip("Minesweeper", new Location(2, 7), "W");
+        player.placeShip("Destroyer", new Location(5, 2), "N");
+        player.placeShip("Submarine", new Location(2,6,-1), "NE");
+    }
+
+
+    @Test
+    public void canMoveFleetValid(){
+        generateCaseAllShipsCanMove();
+        player.moveFleet("E");
+        // assert new locations
+        Assert.assertEquals(new Location(2,9), player.getShipByName("Battleship").getCaptainsQuarters());
+        Assert.assertEquals(new Location(3,7), player.getShipByName("Minesweeper").getCaptainsQuarters());
+        Assert.assertEquals(new Location(6,2), player.getShipByName("Destroyer").getCaptainsQuarters());
+        Assert.assertEquals(new Location(3,6, -1), player.getShipByName("Submarine").getCaptainsQuarters());
+        // move again
+        player.moveFleet("E");
+        Assert.assertEquals(new Location(3,9), player.getShipByName("Battleship").getCaptainsQuarters());
+        Assert.assertEquals(new Location(4,7), player.getShipByName("Minesweeper").getCaptainsQuarters());
+        Assert.assertEquals(new Location(7,2), player.getShipByName("Destroyer").getCaptainsQuarters());
+        Assert.assertEquals(new Location(4,6, -1), player.getShipByName("Submarine").getCaptainsQuarters());
+        // undo twice
+        player.undoMoveFleet();
+        player.undoMoveFleet();
+        // should be original locations
+        Assert.assertEquals(new Location(1,9), player.getShipByName("Battleship").getCaptainsQuarters());
+        Assert.assertEquals(new Location(2,7), player.getShipByName("Minesweeper").getCaptainsQuarters());
+        Assert.assertEquals(new Location(5,2), player.getShipByName("Destroyer").getCaptainsQuarters());
+        Assert.assertEquals(new Location(2,6, -1), player.getShipByName("Submarine").getCaptainsQuarters());
+        // redo once
+        player.redoMoveFleet();
+        // should be in intermediate locations
+        Assert.assertEquals(new Location(2,9), player.getShipByName("Battleship").getCaptainsQuarters());
+        Assert.assertEquals(new Location(3,7), player.getShipByName("Minesweeper").getCaptainsQuarters());
+        Assert.assertEquals(new Location(6,2), player.getShipByName("Destroyer").getCaptainsQuarters());
+        Assert.assertEquals(new Location(3,6, -1), player.getShipByName("Submarine").getCaptainsQuarters());
+        // redo again
+        player.redoMoveFleet();
+        Assert.assertEquals(new Location(3,9), player.getShipByName("Battleship").getCaptainsQuarters());
+        Assert.assertEquals(new Location(4,7), player.getShipByName("Minesweeper").getCaptainsQuarters());
+        Assert.assertEquals(new Location(7,2), player.getShipByName("Destroyer").getCaptainsQuarters());
+        Assert.assertEquals(new Location(4,6, -1), player.getShipByName("Submarine").getCaptainsQuarters());
+        // move fleet south
+        player.moveFleet("S");
+        Assert.assertEquals(new Location(3,8), player.getShipByName("Battleship").getCaptainsQuarters());
+        Assert.assertEquals(new Location(4,6), player.getShipByName("Minesweeper").getCaptainsQuarters());
+        Assert.assertEquals(new Location(7,1), player.getShipByName("Destroyer").getCaptainsQuarters());
+        Assert.assertEquals(new Location(4,5, -1), player.getShipByName("Submarine").getCaptainsQuarters());
+        // try to redo... shouldn't throw error, but since we pushed to undo stack, redo stack should be cleared
+        player.redoMoveFleet();
+        Assert.assertEquals(new Location(3,8), player.getShipByName("Battleship").getCaptainsQuarters());
+        Assert.assertEquals(new Location(4,6), player.getShipByName("Minesweeper").getCaptainsQuarters());
+        Assert.assertEquals(new Location(7,1), player.getShipByName("Destroyer").getCaptainsQuarters());
+        Assert.assertEquals(new Location(4,5, -1), player.getShipByName("Submarine").getCaptainsQuarters());
+
+    }
+}

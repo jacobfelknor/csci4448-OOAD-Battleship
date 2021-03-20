@@ -29,6 +29,7 @@ public class Minesweeper extends Ship {
             );
         }
         assert dimensions.size() == this.getLength();
+        this.orientation = orientation;
         return dimensions;
     }
 }

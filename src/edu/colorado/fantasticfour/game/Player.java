@@ -1,5 +1,7 @@
 package edu.colorado.fantasticfour.game;
 
+import edu.colorado.fantasticfour.command.Command;
+import edu.colorado.fantasticfour.command.MoveFleetCommand;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.ship.*;
 import edu.colorado.fantasticfour.weapons.Bomb;
@@ -8,6 +10,7 @@ import edu.colorado.fantasticfour.weapons.Sonar;
 import edu.colorado.fantasticfour.weapons.Weapon;
 
 import java.util.List;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class Player {
@@ -18,6 +21,8 @@ public class Player {
 
     private Sonar sonar;
     private Weapon attackWeapon;
+    private Stack<Command> undoCommandStack;
+    private Stack<Command> redoCommandStack;
 
     public Player() {
         this.ships = List.of(
@@ -27,9 +32,10 @@ public class Player {
                 new Submarine()
         );
         this.board = new Board(this);
-
         this.attackWeapon = new Bomb(this); // the Bomb is the default Weapon
         this.sonar = new Sonar(this);
+        this.undoCommandStack = new Stack<>();
+        this.redoCommandStack = new Stack<>();
     }
 
 
@@ -90,7 +96,7 @@ public class Player {
         if(this.hasSunkOpponentShip() && this.attackWeapon instanceof Bomb){
             this.attackWeapon = new Laser(this);
         }
-        // else, Bomb is default and should be left as is
+        // else, Bomb is default and should be left as is, OR we already have the Laser
     }
 
     public String takeShot(Location location) throws IllegalArgumentException{
@@ -115,5 +121,28 @@ public class Player {
         ship.getGps().setCoordinates(shipCells);
     }
 
+    public void moveFleet(String direction){
+        Command command = new MoveFleetCommand(this, direction);
+        this.undoCommandStack.push(command);
+        command.execute();
+        // clear the redo command because we pushed a new command
+        this.redoCommandStack.removeAllElements();
+    }
+
+    public void undoMoveFleet(){
+        Command commandToUndo = this.undoCommandStack.pop();
+        commandToUndo.undo();
+        // I've undone a command, so add it to redo stack
+        this.redoCommandStack.push(commandToUndo);
+    }
+
+    public void redoMoveFleet(){
+        if(!this.redoCommandStack.isEmpty()){
+            Command commandToRedo = this.redoCommandStack.pop();
+            commandToRedo.execute();
+            // I've redone a command, so add it to undo stack
+            this.undoCommandStack.push(commandToRedo);
+        }
+    }
 
 }

@@ -15,6 +15,11 @@ public class CaptainsQuartersNoArmor implements CaptainsQuartersBehavior{
     }
 
     @Override
+    public Location getCaptainsQuarters() {
+        return this.captainsQ;
+    }
+
+    @Override
     public boolean checkWithCaptainsQuarters(Location location) {
         if(location.equals(this.captainsQ)){
             ship.sunk = true;

@@ -83,6 +83,7 @@ public class Submarine extends Ship{
             default -> this.getDimensionsExceptionHelper(orientation);
         }
         assert dimensions.size() == this.getLength();
+        this.orientation = orientation;
         return dimensions;
     }
 }

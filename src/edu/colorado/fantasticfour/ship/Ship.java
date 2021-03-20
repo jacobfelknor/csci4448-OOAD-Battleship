@@ -12,16 +12,21 @@ import java.util.List;
 public abstract class Ship {
     protected String name;
     protected int length;
+    protected String orientation;
     protected CaptainsQuartersBehavior captainsQuartersBehavior;
     protected boolean sunk = false;
     protected ShipGPS gps;
 
     public int getLength() {
-        return length;
+        return this.length;
+    }
+
+    public String getOrientation(){
+        return this.orientation;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public ShipGPS getGps(){
@@ -45,6 +50,10 @@ public abstract class Ship {
 
     public void setCaptainsQuarters(Location captainsQuarters){
         this.captainsQuartersBehavior.setCaptainsQuarters(captainsQuarters);
+    }
+
+    public Location getCaptainsQuarters(){
+        return this.captainsQuartersBehavior.getCaptainsQuarters();
     }
 
     public abstract List<Location> getDimensions(Location captainsQ, String orientation);
