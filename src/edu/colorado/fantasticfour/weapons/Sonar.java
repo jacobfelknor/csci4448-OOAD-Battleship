@@ -1,6 +1,5 @@
 package edu.colorado.fantasticfour.weapons;
 
-import edu.colorado.fantasticfour.game.Cell;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.game.Player;
 
@@ -8,7 +7,7 @@ public class Sonar extends Weapon {
     //gotta think about delegation
 
     //public int movesLeft = 2;
-    public static int sonarMovesLeft = 2;
+    public int sonarMovesLeft = 2;
     private Player owner;
     private boolean[] sonarResults = new boolean[13];
     private Location target;
@@ -24,26 +23,26 @@ public class Sonar extends Weapon {
     @Override
     public String useAt(Location location) {
         //checking to see if ysonar is on surface and not under water
-        if(!this.owner.getTheirBoard().isOnSurface(location)){
+        if(this.owner.getTheirBoard().isBelowSurface(location)){
             throw new IllegalArgumentException("Sonar can only be used on the surface. Location given was " + location);
         }
         //checking to see if the sonar is on board and not out of bounds
         if(!this.owner.getTheirBoard().isOnBoard(location)){
             throw new IllegalArgumentException("Location does not exist on this board");
         }
-
-        Cell targetCell = this.owner.getTheirBoard().getCellAt(location);
-        return targetCell.notifyObservers();
+        this.setTarget(location);
+        this.useSonar();
+        return ""; // sonar doesn't need the return
     }
 
-    /*
+
     public void setTarget(Location location){
-       if (this.player.getMyBoard().isOnBoard(location)){
-           player.sonar.target = location;
+       if (this.owner.getMyBoard().isOnBoard(location)){
+           owner.getSonar().target = location;
        }else{
            throw new IllegalArgumentException("Location does not exist on this board");
        }
-    }*/
+    }
 
     public int movesRemain() {
         /*since sonar is coming from owner and that owner has been
@@ -54,14 +53,17 @@ public class Sonar extends Weapon {
     }
 
     public boolean canUseSonar(){
-        int afloatShips = owner.getOpponent().getAfloatShips().size();
-        int allShips = owner.getOpponent().getAllShips().size();
-        return ((sonarMovesLeft < 1) && (afloatShips < allShips));
+        return this.owner.hasSunkOpponentShip() && this.sonarMovesLeft > 0;
     }
 
     public void useSonar() {
-        if (canUseSonar()) {
-            throw new IllegalArgumentException("No moves left");
+        if (!canUseSonar()) {
+            if(movesRemain() == 0){
+                throw new IllegalArgumentException("No moves left");
+            }else{
+                throw new IllegalArgumentException("Have not sunk opponent ship yet");
+            }
+
         }
         else{
             // top row

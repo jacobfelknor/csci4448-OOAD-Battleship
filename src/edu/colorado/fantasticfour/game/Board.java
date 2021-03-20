@@ -32,16 +32,21 @@ public class Board {
         return this.grid.containsKey(location);
     }
 
-    public boolean isOnSurface(Location location){
-        return location.getZ() == 0;
-    }
-
-    public boolean isSubSurface(Location location){
-        return location.getZ() == 1;
+    public boolean isBelowSurface(Location location){
+        return location.getZ() < 0;
     }
 
     public Cell getCellAt(Location location){
         return this.grid.get(location);
+    }
+
+    public List<Cell> getCellsInColumn(Location location){
+        List<Cell> cells = new ArrayList<>();
+        for(int z = 0; z < gridLayers; z++){
+            Location layer = new Location(location.getX(), location.getY(), -z);
+            cells.add(this.getCellAt(layer));
+        }
+        return cells;
     }
 
     public List<Cell> getCellsAtLocations(List<Location> locations){

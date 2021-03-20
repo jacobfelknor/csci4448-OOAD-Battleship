@@ -42,14 +42,9 @@ public class Cell implements Subject {
 
     @Override
     public String notifyObservers() {
-        List<String> results = new ArrayList<>();
-        for(Observer o : this.observers){
-            results.add(o.update(this));
-        }
-        if(results.contains("SUNK")){
-            return "SUNK";
-        }else if(results.contains("HIT")){
-            return "HIT";
+        if(!this.observers.isEmpty()){
+            Observer target = this.observers.get(0); // a Cell only has a single observer, its ship
+            return target.update(this);
         }
         return "MISS";
     }

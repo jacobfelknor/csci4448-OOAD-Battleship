@@ -16,9 +16,8 @@ public class Player {
     private Player opponent;
     private List<Ship> ships;
 
-    private Weapon sonar;
+    private Sonar sonar;
     private Weapon attackWeapon;
-    private Weapon laser;
 
     public Player() {
         this.ships = List.of(
@@ -30,7 +29,6 @@ public class Player {
         this.board = new Board(this);
 
         this.attackWeapon = new Bomb(this); // the Bomb is the default Weapon
-        //this.laser = new Laser(this);
         this.sonar = new Sonar(this);
     }
 
@@ -56,6 +54,10 @@ public class Player {
 
     public boolean mustSurrender(){
         return getAfloatShips().size() == 0;
+    }
+
+    public boolean hasSunkOpponentShip(){
+        return this.getOpponent().getAfloatShips().size() < this.getOpponent().getPlacedShips().size();
     }
 
     public List<Ship> getPlacedShips(){
@@ -84,8 +86,20 @@ public class Player {
         this.opponent = opp;
     }
 
+    private void setAttackWeapon(){
+        if(this.hasSunkOpponentShip() && this.attackWeapon instanceof Bomb){
+            this.attackWeapon = new Laser(this);
+        }
+        // else, Bomb is default and should be left as is
+    }
+
     public String takeShot(Location location) throws IllegalArgumentException{
+        this.setAttackWeapon();
         return this.attackWeapon.useAt(location);
+    }
+
+    public Sonar getSonar(){
+        return this.sonar;
     }
 
     public void placeShip(String name, Location captainsQ, String orientation) throws IllegalArgumentException{

@@ -17,7 +17,7 @@ public class Bomb extends Weapon{
 
     @Override
     public String useAt(Location location) {
-        if(!this.owner.getTheirBoard().isOnSurface(location)){
+        if(this.owner.getTheirBoard().isBelowSurface(location)){
             throw new IllegalArgumentException("A Bomb can only be used on the surface. Location given was " + location);
         }
         Cell targetCell = this.owner.getTheirBoard().getCellAt(location);
