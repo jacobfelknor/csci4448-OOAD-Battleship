@@ -1,4 +1,8 @@
-import edu.colorado.fantasticfour.*;
+import edu.colorado.fantasticfour.game.Board;
+import edu.colorado.fantasticfour.game.Game;
+import edu.colorado.fantasticfour.game.Player;
+import edu.colorado.fantasticfour.location.Location;
+import edu.colorado.fantasticfour.ship.Ship;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,14 +35,30 @@ public class PlayerClassTest {
     }
 
     @Test
+    public void canPlayerPlaceShip(){
+        player1.placeShip("Battleship", new Location(8,9), "E");
+    }
+
+    @Test
+    public void canPlayerNotPlaceTwoShipsInSameCell(){
+//      (6,9), (7,9), (8,9), (9,9)
+        player1.placeShip("Battleship", new Location(8,9), "E");
+        try{
+            player1.placeShip("Minesweeper", new Location(5,9), "W");
+        }catch (IllegalStateException e){
+            Assert.assertEquals("Cell already has a Ship observer. Are Ships colliding?", e.getMessage());
+        }
+    }
+
+    @Test
     public void canGetAllShips(){
-        Assert.assertEquals(3, player1.getAllShips().size());
+        Assert.assertEquals(4, player1.getAllShips().size());
     }
 
     @Test
     public void canGetAfloatShips(){
         Assert.assertEquals(0, player1.getAfloatShips().size());
-        player1.placeShip("Battleship", new Location(9,9), new Location(8,9), new Location(7,9), new Location(6,9));
+        player1.placeShip("Battleship", new Location(8,9), "E");
         Assert.assertEquals(1, player1.getAfloatShips().size());
     }
 
@@ -49,7 +69,7 @@ public class PlayerClassTest {
 
     @Test
     public void canGetShipByLocation(){
-        player1.placeShip("Battleship", new Location(3,0), new Location(3,1), new Location(3,2), new Location(3,3));
+        player1.placeShip("Battleship", new Location(3,2), "N");
         Assert.assertNotNull(player1.getShipAt(new Location(3,1)));
     }
 
@@ -67,7 +87,7 @@ public class PlayerClassTest {
     public void canNotGetBogusShipLocation(){
         Ship battleship = player1.getShipByName("Battleship");
         Assert.assertNotNull(battleship);
-        player1.placeShip("Battleship", new Location(3,0), new Location(3,1), new Location(3,2), new Location(3,3));
+        player1.placeShip("Battleship", new Location(3,1), "S");
         try{
             player1.getShipAt(new Location(5,5));
             fail();

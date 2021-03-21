@@ -1,4 +1,8 @@
-import edu.colorado.fantasticfour.*;
+import edu.colorado.fantasticfour.game.Game;
+import edu.colorado.fantasticfour.game.Player;
+import edu.colorado.fantasticfour.location.Location;
+import edu.colorado.fantasticfour.ship.Battleship;
+import edu.colorado.fantasticfour.ship.Ship;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,44 +28,32 @@ public class BattleshipClassTest {
 
     @Test
     public void canPlaceShip() {
-        player1.placeShip("Battleship", new Location(3,0), new Location(3,1), new Location(3,2), new Location(3,3));
-    }
-
-    @Test
-    public void canNotPlaceShipInBadLine() {
-        try {
-            player1.placeShip("Battleship", new Location(4,0), new Location(3,1), new Location(3,2), new Location(3,3));
-            fail(); //never should get here
-        }catch (IllegalArgumentException e){
-            Assert.assertEquals("Cells are not on a straight line", e.getMessage());
-        }
-
+        player1.placeShip("Battleship", new Location(3,2), "E");
     }
 
     @Test
     public void canNotPlaceShipOffBoard() {
         try {
-            player1.placeShip("Battleship", new Location(9,12), new Location(10,12), new Location(11,12), new Location(12,12));
+            player1.placeShip("Battleship", new Location(0,0), "W");
             fail(); //never should get here
         }catch (IllegalArgumentException e){
-            Assert.assertEquals("One or more locations do not exist on this board", e.getMessage());
+            Assert.assertTrue(e.getMessage().startsWith("One or more locations do not exist on this board"));
         }
     }
 
     @Test
-    public void canNotPlaceShipOfWrongLength() {
+    public void canNotGiveBadOrientation(){
         try {
-            // this is a battleship. Should need 4 Cells
-            player1.placeShip("Battleship", new Location(3,0), new Location(3,1), new Location(3,2));
+            player1.placeShip("Battleship", new Location(0,0), "Z");
             fail(); //never should get here
         }catch (IllegalArgumentException e){
-            Assert.assertEquals("Number of cells must match ship length", e.getMessage());
+            Assert.assertTrue(e.getMessage().startsWith("Unknown orientation. Must be N,S,E, or W"));
         }
     }
 
     @Test
     public void testSunkCaptainsQLast() {
-        player1.placeShip("Battleship", new Location(9,9), new Location(8,9), new Location(7,9), new Location(6,9));
+        player1.placeShip("Battleship", new Location(8,9), "E");
         // Captain's quarters is at (8,9)
         Assert.assertEquals("HIT", player2.takeShot(new Location(9,9)));
         Assert.assertEquals("HIT", player2.takeShot(new Location(7,9)));
@@ -73,7 +65,7 @@ public class BattleshipClassTest {
 
     @Test
     public void testSunkCaptainsQFirst() {
-        player1.placeShip("Battleship", new Location(9,9), new Location(8,9), new Location(7,9), new Location(6,9));
+        player1.placeShip("Battleship", new Location(8,9), "E");
         // Captain's quarters is at (8,9)
         // attempt captains quarters
         Assert.assertEquals("MISS", player2.takeShot(new Location(8,9)));
@@ -82,7 +74,7 @@ public class BattleshipClassTest {
 
     @Test
     public void testSunkCaptainsQMiddle() {
-        player1.placeShip("Battleship", new Location(9,9), new Location(8,9), new Location(7,9), new Location(6,9));
+        player1.placeShip("Battleship", new Location(8,9), "E");
         // Captain's quarters is at (8,9)
         Assert.assertEquals("HIT", player2.takeShot(new Location(6,9)));
         // attempt captains quarters

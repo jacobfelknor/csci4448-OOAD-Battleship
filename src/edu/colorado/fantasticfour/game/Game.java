@@ -1,4 +1,4 @@
-package edu.colorado.fantasticfour;
+package edu.colorado.fantasticfour.game;
 
 public class Game {
     private Player player1;

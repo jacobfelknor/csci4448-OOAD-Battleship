@@ -1,11 +1,9 @@
-import edu.colorado.fantasticfour.*;
+import edu.colorado.fantasticfour.game.Game;
+import edu.colorado.fantasticfour.game.Player;
+import edu.colorado.fantasticfour.location.Location;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.Assert;
-
-import java.util.HashMap;
-import java.util.List;
 
 import static junit.framework.TestCase.fail;
 
@@ -16,11 +14,13 @@ public class GameClassTest {
 
     public void placePlayerShips(Player player) {
         // captainsQ at 0,0
-        player.placeShip("Minesweeper", new Location(0,0), new Location(0,1));
+        player.placeShip("Minesweeper", new Location(0,0), "S");
         // captainsQ at 5,6
-        player.placeShip("Destroyer", new Location(5,5), new Location(5,6), new Location(5,7));
+        player.placeShip("Destroyer", new Location(5,6), "S");
         // captainsQ at 8,9
-        player.placeShip("Battleship", new Location(9,9), new Location(8,9), new Location(7,9), new Location(6,9));
+        player.placeShip("Battleship", new Location(8,9), "E");
+        // captainsQ at (0,9)
+        player.placeShip("Submarine", new Location(0,9), "WS");
     }
 
     @Before
@@ -37,10 +37,10 @@ public class GameClassTest {
     }
 
     @Test
-    public void canGetPlayers(){
+    public void canNotGetBadPlayers(){
         // this should throw exception
         try {
-            Player player3 = game.getPlayer("3");
+            game.getPlayer("3");
             fail(); // should never be reached
         } catch (IllegalArgumentException e){
             Assert.assertEquals("Game only has player '1' and '2'", e.getMessage());
@@ -78,6 +78,12 @@ public class GameClassTest {
         Assert.assertEquals("MISS", player1.takeShot(new Location(8,9)));
         Assert.assertEquals("MISS", player2.takeShot(new Location(8,9)));
         Assert.assertEquals("SUNK", player1.takeShot(new Location(8,9)));
+        // submarine
+        Assert.assertEquals("HIT", player2.takeShot(new Location(1,9)));
+        Assert.assertEquals("MISS", player1.takeShot(new Location(0,9)));
+        Assert.assertEquals("MISS", player2.takeShot(new Location(0,9)));
+        // hit captainsQ
+        Assert.assertEquals("SUNK", player1.takeShot(new Location(0,9)));
         // player 1 should have won
         Assert.assertTrue(player2.mustSurrender());
         Assert.assertFalse(player1.mustSurrender());

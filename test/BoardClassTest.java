@@ -1,5 +1,5 @@
-import edu.colorado.fantasticfour.Board;
-import edu.colorado.fantasticfour.Player;
+import edu.colorado.fantasticfour.game.Board;
+import edu.colorado.fantasticfour.game.Player;
 import org.junit.Test;
 
 public class BoardClassTest {

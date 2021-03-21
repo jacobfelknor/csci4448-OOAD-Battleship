@@ -1,4 +1,8 @@
-import edu.colorado.fantasticfour.*;
+import edu.colorado.fantasticfour.game.Game;
+import edu.colorado.fantasticfour.game.Player;
+import edu.colorado.fantasticfour.location.Location;
+import edu.colorado.fantasticfour.ship.Minesweeper;
+import edu.colorado.fantasticfour.ship.Ship;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,55 +28,44 @@ public class MinesweeperClassTest {
 
     @Test
     public void canPlaceShip() {
-        player1.placeShip("Minesweeper", new Location(3,0), new Location(3,1));
+        player1.placeShip("Minesweeper", new Location(3,1), "N");
     }
 
-    @Test
-    public void canNotPlaceShipInBadLine() {
-        try {
-            player1.placeShip("Minesweeper", new Location(4,0), new Location(3,1));
-            fail(); //never should get here
-        }catch (IllegalArgumentException e){
-            Assert.assertEquals("Cells are not on a straight line", e.getMessage());
-        }
-
-    }
 
     @Test
     public void canNotPlaceShipOffBoard() {
         try {
-            player1.placeShip("Minesweeper", new Location(9,12), new Location(10,12));
+            player1.placeShip("Minesweeper", new Location(0,0), "N");
             fail(); //never should get here
         }catch (IllegalArgumentException e){
-            Assert.assertEquals("One or more locations do not exist on this board", e.getMessage());
+            Assert.assertTrue(e.getMessage().startsWith("One or more locations do not exist on this board"));
         }
     }
 
     @Test
-    public void canNotPlaceShipOfWrongLength() {
+    public void canNotGiveBadOrientation(){
         try {
-            // this is a minesweeper. Should need 2 Cells
-            player1.placeShip("Minesweeper", new Location(3,0), new Location(3,1), new Location(3,2));
+            player1.placeShip("Minesweeper", new Location(0,0), "Z");
             fail(); //never should get here
         }catch (IllegalArgumentException e){
-            Assert.assertEquals("Number of cells must match ship length", e.getMessage());
+            Assert.assertTrue(e.getMessage().startsWith("Unknown orientation. Must be N,S,E, or W"));
         }
     }
 
     @Test
     public void testSunkCaptainsQLast() {
-        player1.placeShip("Minesweeper", new Location(9,9), new Location(8,9));
+        player1.placeShip("Minesweeper", new Location(9,9), "E");
         // Captain's quarters is at (8,9)
-        Assert.assertEquals("HIT", player2.takeShot(new Location(9,9)));
+        Assert.assertEquals("HIT", player2.takeShot(new Location(8,9)));
         // attempt captains quarters
-        Assert.assertEquals("SUNK", player2.takeShot(new Location(8,9)));
+        Assert.assertEquals("SUNK", player2.takeShot(new Location(9,9)));
     }
 
     @Test
     public void testSunkCaptainsQFirst() {
-        player1.placeShip("Minesweeper", new Location(9,9), new Location(8,9));
+        player1.placeShip("Minesweeper", new Location(9,9), "E");
         // Captain's quarters is at (8,9)
         // attempt captains quarters
-        Assert.assertEquals("SUNK", player2.takeShot(new Location(8,9)));
+        Assert.assertEquals("SUNK", player2.takeShot(new Location(9,9)));
     }
 }
