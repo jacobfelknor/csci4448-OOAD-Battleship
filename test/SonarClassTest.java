@@ -75,12 +75,6 @@ public class SonarClassTest {
     }
 
     @Test
-    public void sonarDetectsShip() {
-        result = player.getSonar().getSonarAt(new Location(5,5));
-        Assert.assertFalse(result);
-    }
-
-    @Test
     public void checkSonarResults() {
         // place and hit an opponent ship
         player2.placeShip("Destroyer", new Location(0,1), "N");
@@ -101,26 +95,58 @@ public class SonarClassTest {
     }
 
     @Test
-    public void checkTargetInBounds() {
+    public void useUnderSurface(){
+        Location location = new Location(1, 1, -1);
         try{
-            player.getSonar().setTarget(new Location(11,13));
-            fail();
+            player.getSonar().useAt(location);
         }catch (IllegalArgumentException e) {
-            Assert.assertEquals("Location does not exist on this board", e.getMessage());
+            Assert.assertTrue(e.getMessage().startsWith("Sonar can only be used on the surface"));
         }
     }
 
     @Test
-    public void checkOutOfBoundsIsFalse() {
-        // place and hit an opponent ship
-        player2.placeShip("Minesweeper", new Location(9,9), "E");
-        player.takeShot(new Location(9,9));
-        player.getSonar().setTarget(new Location(0,0));
-        player.getSonar().useAt(target);
-        resultList = player.getSonar().getSonarResults();
+    public void useAtSetTarget(){
+        Location location = new Location(0,0,0);
+        player2.placeShip("Minesweeper", location, "W");
+        player.takeShot(location);
 
-        Assert.assertFalse(resultList[0]);
+        player.getSonar().useAt(location);
+
+        Assert.assertEquals(location, player.getSonar().getTarget());
     }
 
+    @Test
+    public void checkInBoundsOnBoard(){
+        Location location = new Location(1, 50, 0);
+        try{
+            player.getSonar().useAt(location);
+        }catch (IllegalArgumentException e) {
+            Assert.assertTrue(e.getMessage().startsWith("Location does not exist on this board"));
+        }
+    }
+
+    @Test
+    public void returnTarget(){
+        Location location = new Location(0,0,0);
+        player.getSonar().setTarget(location);
+        Assert.assertEquals(location, player.getSonar().getTarget());
+    }
+
+    @Test
+    public void isTargetSet(){
+        Location location = new Location(1, 1, 0);
+        player.getSonar().setTarget(location);
+        Assert.assertEquals(location, player.getSonar().getTarget());
+    }
+
+    @Test
+    public void targetNotSet(){
+        Location location = new Location(1, 50, 0);
+        try {
+            player.getSonar().setTarget(location);
+        }catch(IllegalArgumentException e) {
+            Assert.assertTrue(e.getMessage().startsWith("Location does not exist on this board"));
+        }
+    }
 
 }

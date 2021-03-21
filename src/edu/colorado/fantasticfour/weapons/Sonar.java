@@ -35,6 +35,9 @@ public class Sonar extends Weapon {
         return ""; // sonar doesn't need the return
     }
 
+    public Location getTarget(){
+        return this.target;
+    }
 
     public void setTarget(Location location){
        if (this.owner.getMyBoard().isOnBoard(location)){
@@ -101,7 +104,7 @@ public class Sonar extends Weapon {
         return owner.getTheirBoard().getCellAt(location).hasObservers();
     }
 
-    public boolean getSonarAt(int x, int y,int z){
+    public boolean getSonarAt(int x, int y, int z){
         return this.getSonarAt(new Location(x, y,z));
     }
 }
