@@ -11,7 +11,7 @@ public class MoveFleetCommand implements Command{
     private Player owner;
     private List<Ship> affectedShips;
     private String direction;
-    private static String oppositeDirectionOf(String direction){
+    public static String oppositeDirectionOf(String direction){
         String opposite;
         switch (direction){
             case "N" -> opposite = "S";
@@ -40,6 +40,7 @@ public class MoveFleetCommand implements Command{
             default -> throw new IllegalArgumentException("Direction must be one of N, S, E, W. Given + '"
                     + direction + "'");
         }
+        System.out.println(ship.getCaptainsQuarters().plus(moveVector));
         this.owner.placeShip(ship.getName(), ship.getCaptainsQuarters().plus(moveVector), ship.getOrientation());
     }
 

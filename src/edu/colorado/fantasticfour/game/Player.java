@@ -110,13 +110,13 @@ public class Player {
 
     public void placeShip(String name, Location captainsQ, String orientation) throws IllegalArgumentException{
         Ship ship = this.getShipByName(name);
-        ship.setCaptainsQuarters(captainsQ);
         List<Location> locations = ship.getDimensions(captainsQ, orientation);
         for(Location location : locations){
             if(!this.getMyBoard().isOnBoard(location)){
                 throw new IllegalArgumentException("One or more locations do not exist on this board " + locations);
             }
         }
+        ship.setCaptainsQuarters(captainsQ);
         List<Cell> shipCells = this.getMyBoard().getCellsAtLocations(locations);
         ship.getGps().setCoordinates(shipCells);
     }
