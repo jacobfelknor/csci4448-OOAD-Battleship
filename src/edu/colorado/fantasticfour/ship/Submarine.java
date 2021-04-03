@@ -10,7 +10,7 @@ public class Submarine extends Ship{
     public Submarine(){
         this.name = "Submarine";
         this.length = 5; // NOTE: length in this case simply means # of cells
-        this.captainsQuartersBehavior = new CaptainsQuartersWithArmor(this);
+        this.captainsQuarters = new CaptainsQuarters(this, 1);
         this.gps = new ShipGPS(this);
     }
 

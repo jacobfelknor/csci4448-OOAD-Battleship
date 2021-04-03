@@ -13,7 +13,7 @@ public abstract class Ship {
     protected String name;
     protected int length;
     protected String orientation;
-    protected CaptainsQuartersBehavior captainsQuartersBehavior;
+    protected CaptainsQuarters captainsQuarters;
     protected boolean sunk = false;
     protected ShipGPS gps;
 
@@ -38,7 +38,7 @@ public abstract class Ship {
     }
 
     public String resultOfHit(Cell cell) {
-        if(this.captainsQuartersBehavior.checkWithCaptainsQuarters(cell.getLocation())){
+        if(this.captainsQuarters.checkWithCaptainsQuarters(cell.getLocation())){
             if(this.isSunk()){
                 return "SUNK";
             }else{
@@ -49,11 +49,11 @@ public abstract class Ship {
     }
 
     public void setCaptainsQuarters(Location captainsQuarters){
-        this.captainsQuartersBehavior.setCaptainsQuarters(captainsQuarters);
+        this.captainsQuarters.setCaptainsQuarters(captainsQuarters);
     }
 
     public Location getCaptainsQuarters(){
-        return this.captainsQuartersBehavior.getCaptainsQuarters();
+        return this.captainsQuarters.getCaptainsQuarters();
     }
 
     public abstract List<Location> getDimensions(Location captainsQ, String orientation);
