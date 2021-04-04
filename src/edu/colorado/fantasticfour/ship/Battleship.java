@@ -10,7 +10,7 @@ public class Battleship extends Ship {
     public Battleship(){
         this.name = "Battleship";
         this.length = 4;
-        this.captainsQuartersBehavior = new CaptainsQuartersWithArmor(this);
+        this.captainsQuarters = new CaptainsQuarters(this, 1);
         this.gps = new ShipGPS(this);
     }
 

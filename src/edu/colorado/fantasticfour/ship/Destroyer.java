@@ -10,7 +10,7 @@ public class Destroyer extends Ship {
     public Destroyer(){
         this.name = "Destroyer";
         this.length = 3;
-        this.captainsQuartersBehavior = new CaptainsQuartersWithArmor(this);
+        this.captainsQuarters = new CaptainsQuarters(this, 1);
         this.gps = new ShipGPS(this);
     }
 

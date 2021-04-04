@@ -2,30 +2,28 @@ package edu.colorado.fantasticfour.ship;
 
 import edu.colorado.fantasticfour.location.Location;
 
-public class CaptainsQuartersWithArmor implements CaptainsQuartersBehavior{
-    private boolean hasCaptainQArmor = true;
+public class CaptainsQuarters{
+    private int armor;
     private Location captainsQ;
     private Ship ship;
 
-    public CaptainsQuartersWithArmor(Ship ship){
+    public CaptainsQuarters(Ship ship, int armor){
         this.ship = ship;
+        this.armor = armor;
     }
 
-    @Override
     public void setCaptainsQuarters(Location location) {
         this.captainsQ = location;
     }
 
-    @Override
     public Location getCaptainsQuarters() {
         return this.captainsQ;
     }
 
-    @Override
     public boolean checkWithCaptainsQuarters(Location location) {
         if(location.equals(this.captainsQ)){
-            if(hasCaptainQArmor){
-                this.hasCaptainQArmor = false;
+            if(this.armor > 0){
+                this.armor--;
                 return false;
             }else {
                 ship.sunk = true;

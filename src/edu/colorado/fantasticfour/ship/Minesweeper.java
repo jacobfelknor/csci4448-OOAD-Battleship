@@ -10,7 +10,7 @@ public class Minesweeper extends Ship {
     public Minesweeper(){
         this.name = "Minesweeper";
         this.length = 2;
-        this.captainsQuartersBehavior = new CaptainsQuartersNoArmor(this);
+        this.captainsQuarters = new CaptainsQuarters(this, 0);
         this.gps = new ShipGPS(this);
     }
 
