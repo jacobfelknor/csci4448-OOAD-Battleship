@@ -6,6 +6,7 @@ import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.ship.*;
 import edu.colorado.fantasticfour.weapons.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
@@ -21,7 +22,6 @@ public class Player {
     private MineField minefield;
     private Stack<Command> undoCommandStack;
     private Stack<Command> redoCommandStack;
-    private String[] doubShotResults = new String[2];
 
     public Player() {
         this.ships = List.of(
@@ -104,13 +104,14 @@ public class Player {
         return this.attackWeapon.useAt(location);
     }
 
-    public String[] takeDoubleShot(Location location1, Location location2) throws IllegalArgumentException{
+    public List<String> takeDoubleShot(Location location1, Location location2) throws IllegalArgumentException{
         if (this.getAfloatShips().size() > 1) {
             throw new IllegalArgumentException("Double shot can only be used with one ship remaining");
         }else{
-            doubShotResults[0] = this.attackWeapon.useAt(location1);
-            doubShotResults[1] = this.attackWeapon.useAt(location2);
-            return doubShotResults;
+            List<String> doubleShotResults = new ArrayList<>();
+            doubleShotResults.add(this.attackWeapon.useAt(location1));
+            doubleShotResults.add(this.attackWeapon.useAt(location2));
+            return doubleShotResults;
         }
     }
 

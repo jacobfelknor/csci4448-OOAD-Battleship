@@ -116,7 +116,7 @@ public class PlayerClassTest {
         player1.placeShip("Battleship", new Location(8,9), "E");
 
         List<String> expected = Arrays.asList("MISS", "MISS");
-        List<String> actual = Arrays.asList(player1.takeDoubleShot(new Location(3, 4), new Location(5, 3)));
+        List<String> actual = player1.takeDoubleShot(new Location(3, 4), new Location(5, 3));
         Assert.assertEquals(expected, actual);
     }
 
