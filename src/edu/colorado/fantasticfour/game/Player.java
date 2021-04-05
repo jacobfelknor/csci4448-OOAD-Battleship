@@ -21,6 +21,7 @@ public class Player {
     private MineField minefield;
     private Stack<Command> undoCommandStack;
     private Stack<Command> redoCommandStack;
+    private String[] doubShotResults = new String[2];
 
     public Player() {
         this.ships = List.of(
@@ -101,6 +102,16 @@ public class Player {
     public String takeShot(Location location) throws IllegalArgumentException{
         this.setAttackWeapon();
         return this.attackWeapon.useAt(location);
+    }
+
+    public String[] takeDoubleShot(Location location1, Location location2) throws IllegalArgumentException{
+        if (this.getAfloatShips().size() > 1) {
+            throw new IllegalArgumentException("Double shot can only be used with one ship remaining");
+        }else{
+            doubShotResults[0] = this.attackWeapon.useAt(location1);
+            doubShotResults[1] = this.attackWeapon.useAt(location2);
+            return doubShotResults;
+        }
     }
 
     public Sonar getSonar(){

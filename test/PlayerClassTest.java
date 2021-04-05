@@ -7,6 +7,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
+
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.fail;
 
@@ -95,4 +99,25 @@ public class PlayerClassTest {
             Assert.assertEquals("Ship not found", e.getMessage());
         }
     }
+
+    @Test
+    public void canNotTakeDoubleShot(){
+        player1.placeShip("Battleship", new Location(8,9), "E");
+        player1.placeShip("Destroyer", new Location(2,3), "E");
+        try{
+            player1.takeDoubleShot(new Location(8, 9), new Location(5, 5));
+        }catch (IllegalArgumentException e){
+            Assert.assertTrue(e.getMessage().startsWith("Double shot can only be used with one ship remaining"));
+        }
+    }
+
+    @Test
+    public void canTakeDoubleShot(){
+        player1.placeShip("Battleship", new Location(8,9), "E");
+
+        List<String> expected = Arrays.asList("MISS", "MISS");
+        List<String> actual = Arrays.asList(player1.takeDoubleShot(new Location(3, 4), new Location(5, 3)));
+        Assert.assertEquals(expected, actual);
+    }
+
 }
