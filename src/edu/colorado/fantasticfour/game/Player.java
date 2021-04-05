@@ -4,11 +4,9 @@ import edu.colorado.fantasticfour.command.Command;
 import edu.colorado.fantasticfour.command.MoveFleetCommand;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.ship.*;
-import edu.colorado.fantasticfour.weapons.Bomb;
-import edu.colorado.fantasticfour.weapons.Laser;
-import edu.colorado.fantasticfour.weapons.Sonar;
-import edu.colorado.fantasticfour.weapons.Weapon;
+import edu.colorado.fantasticfour.weapons.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
@@ -21,6 +19,7 @@ public class Player {
 
     private Sonar sonar;
     private Weapon attackWeapon;
+    private MineField minefield;
     private Stack<Command> undoCommandStack;
     private Stack<Command> redoCommandStack;
 
@@ -34,6 +33,7 @@ public class Player {
         this.board = new Board(this);
         this.attackWeapon = new Bomb(this); // the Bomb is the default Weapon
         this.sonar = new Sonar(this);
+        this.minefield = new MineField(this);
         this.undoCommandStack = new Stack<>();
         this.redoCommandStack = new Stack<>();
     }
@@ -104,6 +104,17 @@ public class Player {
         return this.attackWeapon.useAt(location);
     }
 
+    public List<String> takeDoubleShot(Location location1, Location location2) throws IllegalArgumentException{
+        if (this.getAfloatShips().size() > 1) {
+            throw new IllegalArgumentException("Double shot can only be used with one ship remaining");
+        }else{
+            List<String> doubleShotResults = new ArrayList<>();
+            doubleShotResults.add(this.attackWeapon.useAt(location1));
+            doubleShotResults.add(this.attackWeapon.useAt(location2));
+            return doubleShotResults;
+        }
+    }
+
     public Sonar getSonar(){
         return this.sonar;
     }
@@ -119,6 +130,21 @@ public class Player {
         ship.setCaptainsQuarters(captainsQ);
         List<Cell> shipCells = this.getMyBoard().getCellsAtLocations(locations);
         ship.getGps().setCoordinates(shipCells);
+        // if opponent has a mine here, the moved ship should receive damage (Bomb like)
+        List<Location> minesAt = locations.stream()
+                .filter(x -> this.getOpponent().minefield.hasMineAt(x)).collect(Collectors.toList());
+        if(!minesAt.isEmpty()){
+            Bomb tempBomb = new Bomb(this.getOpponent());
+            for(Location location : minesAt){
+                // ALERT USER THEY PLACED SHIP ON BOMB?
+                tempBomb.useAt(location);
+            }
+        }
+
+    }
+
+    public void placeMine(Location location){
+        this.minefield.placeMineAt(location);
     }
 
     public void moveFleet(String direction){
