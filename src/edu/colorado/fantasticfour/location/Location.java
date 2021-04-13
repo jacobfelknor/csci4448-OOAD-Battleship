@@ -49,6 +49,18 @@ public class Location{
         return "Location<(" + this.getX() + "," + this.getY() + "," + this.getZ() + ")>";
     }
 
+    public static Location parseLocationString(String location){
+        String[] strArr = location.split(" ");
+        assert strArr.length == 2 || strArr.length == 3;
+        int x = Integer.parseInt(strArr[0]);
+        int y = Integer.parseInt(strArr[1]);
+        int z = 0;
+        if(strArr.length == 3){
+            z = Integer.parseInt(strArr[2]);
+        }
+        return new Location(x,y,z);
+    }
+
     public Location plus(Location l){
         return new Location(
                 this.getX() + l.getX(),

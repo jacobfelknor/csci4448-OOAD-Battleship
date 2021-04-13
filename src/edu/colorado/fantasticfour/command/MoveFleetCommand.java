@@ -40,7 +40,6 @@ public class MoveFleetCommand implements Command{
             default -> throw new IllegalArgumentException("Direction must be one of N, S, E, W. Given + '"
                     + direction + "'");
         }
-        System.out.println(ship.getCaptainsQuarters().plus(moveVector));
         this.owner.placeShip(ship.getName(), ship.getCaptainsQuarters().plus(moveVector), ship.getOrientation());
     }
 
