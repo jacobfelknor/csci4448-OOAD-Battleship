@@ -85,27 +85,34 @@ public class GameClassTest {
         );
     }
 
-    @Test
-    public void testCollectShipLocationsFromPlayer(){
-//      assuming placement in this order
-//        Minesweeper,
-//        Destroyer,
-//        Battleship,
-//        Submarine
-        // all our individual input streams
-        String playerShipLocations = "0 0\nS\n3 4\nE\n9 8\nN\n3 4 -1\nNW\n";
+    public void executeGame(String playerShipLocations, String shots){
         // final input stream to send to Game (two ship locations for each player)
-        String inputString = playerShipLocations + playerShipLocations;
+        String inputString = playerShipLocations + playerShipLocations + shots;
         ByteArrayInputStream inputStream = new ByteArrayInputStream(inputString.getBytes());
         customInputSetUp(inputStream);
         game.start();
-        // from our given custom inputStream, player1 should now have a battleship placed at 5 5 facing north
+        // from our given custom inputStream, all ships for both players should be placed
         testShipsWerePlacedForPlayer(player1);
         testShipsWerePlacedForPlayer(player2);
     }
 
     @Test
-    public void canSimulateGame(){
+    public void canSimulateGameThroughInputStream(){
+        //      assuming placement in this order
+//        Minesweeper,
+//        Destroyer,
+//        Battleship,
+//        Submarine
+        // all our individual input streams (some inputs may be invalid on purpose for testing coverage)
+        String playerShipLocations = "0 0\nF\n0 0\nS\n3 4\nE\n9 8\nN\n3 4 -1\nNW\n";
+        String player1WinsShots = "kjf fsdf\n0 0\n0 0\n3 2\n3 4\n3 4\n3 4\n3 4\n3 2\n3 2\n9 6\n9 7\n5 5\n9 8\n9 8\n9 8\n";
+        executeGame(playerShipLocations, player1WinsShots);
+        String player2WinsShots ="0 0\n0 0\n3 2\n3 4\n3 4\n3 4\n3 4\n3 2\n3 2\n9 6\n9 7\n9 8\n9 8\n9 8\n";
+        executeGame(playerShipLocations, player2WinsShots);
+    }
+
+    @Test
+    public void canSimulateGameThroughCode(){
         // player1 places their ships
         placePlayerShips(player1);
         placePlayerShips(player2);

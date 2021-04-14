@@ -37,7 +37,10 @@ public class Board {
     }
 
     public Cell getCellAt(Location location){
-        return this.grid.get(location);
+        if(isOnBoard(location)){
+            return this.grid.get(location);
+        }
+        throw new IllegalArgumentException("Cell does not exist on this board");
     }
 
     public List<Cell> getCellsInColumn(Location location){
@@ -60,5 +63,13 @@ public class Board {
     public Player getPlayer() {
         return player;
     }
+
+//    @Override
+//    public String toString(){
+//        // I want to create a print board method here. May be difficult...
+//        // How to represent the z layers?
+//        // currently aren't keeping track of where shots are attempted. Would need to do this
+//        return super.toString();
+//    }
 
 }

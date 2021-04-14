@@ -51,14 +51,21 @@ public class Location{
 
     public static Location parseLocationString(String location){
         String[] strArr = location.split(" ");
-        assert strArr.length == 2 || strArr.length == 3;
-        int x = Integer.parseInt(strArr[0]);
-        int y = Integer.parseInt(strArr[1]);
-        int z = 0;
-        if(strArr.length == 3){
-            z = Integer.parseInt(strArr[2]);
+        if(!(strArr.length == 2 || strArr.length == 3)){
+            throw new IllegalArgumentException("Location string is invalid. Must be 'X Y'");
         }
-        return new Location(x,y,z);
+        try{
+
+            int x = Integer.parseInt(strArr[0]);
+            int y = Integer.parseInt(strArr[1]);
+            int z = 0;
+            if(strArr.length == 3){
+                z = Integer.parseInt(strArr[2]);
+            }
+            return new Location(x,y,z);
+        }catch (NumberFormatException e){
+            throw new NumberFormatException("Input for Location string must contain integers");
+        }
     }
 
     public Location plus(Location l){
