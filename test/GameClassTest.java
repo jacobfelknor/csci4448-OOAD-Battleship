@@ -1,4 +1,5 @@
 import edu.colorado.fantasticfour.game.Game;
+import edu.colorado.fantasticfour.game.LocalGame;
 import edu.colorado.fantasticfour.game.Player;
 import edu.colorado.fantasticfour.location.Location;
 
@@ -7,6 +8,7 @@ import org.junit.Test;
 import org.junit.Assert;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import static junit.framework.TestCase.fail;
@@ -29,14 +31,14 @@ public class GameClassTest {
 
     @Before
     public void setUp(){
-        game = new Game();
+        game = new LocalGame();
         player1 = game.getPlayer("1");
         player2 = game.getPlayer("2");
     }
 
     public void customInputSetUp(InputStream in){
         // called by tests that need custom input
-        game = new Game(in);
+        game = new LocalGame(in);
         player1 = game.getPlayer("1");
         player2 = game.getPlayer("2");
     }
@@ -82,7 +84,7 @@ public class GameClassTest {
         );
     }
 
-    public void executeGame(String playerShipLocations, String shots){
+    public void executeLocalGame(String playerShipLocations, String shots) throws IOException {
         // final input stream to send to Game (two ship locations for each player)
         String inputString = playerShipLocations + playerShipLocations + shots;
         ByteArrayInputStream inputStream = new ByteArrayInputStream(inputString.getBytes());
@@ -94,7 +96,7 @@ public class GameClassTest {
     }
 
     @Test
-    public void canSimulateGameThroughInputStream(){
+    public void canSimulateGameThroughInputStream() throws IOException {
         //      assuming placement in this order
 //        Minesweeper,
 //        Destroyer,
@@ -103,9 +105,9 @@ public class GameClassTest {
         // all our individual input streams (some inputs may be invalid on purpose for testing coverage)
         String playerShipLocations = "0 0\nF\n0 0\nS\n3 4\nE\n9 8\nN\n3 4 -1\nNW\n";
         String player1WinsShots = "kjf fsdf\n0 0\n0 0\n3 2\n3 4\n3 4\n3 4\n3 4\n3 2\n3 2\n9 6\n9 7\n5 5\n9 8\n9 8\n9 8\n";
-        executeGame(playerShipLocations, player1WinsShots);
+        executeLocalGame(playerShipLocations, player1WinsShots);
         String player2WinsShots ="0 0\n0 0\n3 2\n3 4\n3 4\n3 4\n3 4\n3 2\n3 2\n9 6\n9 7\n9 8\n9 8\n9 8\n";
-        executeGame(playerShipLocations, player2WinsShots);
+        executeLocalGame(playerShipLocations, player2WinsShots);
     }
 
     @Test

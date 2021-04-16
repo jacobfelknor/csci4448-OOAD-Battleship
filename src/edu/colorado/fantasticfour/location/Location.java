@@ -49,6 +49,10 @@ public class Location{
         return "Location<(" + this.getX() + "," + this.getY() + "," + this.getZ() + ")>";
     }
 
+    public String toSimpleString(){
+        return this.getX() + " " + this.getY() + " " + this.getZ();
+    }
+
     public static Location parseLocationString(String location){
         String[] strArr = location.split(" ");
         if(!(strArr.length == 2 || strArr.length == 3)){

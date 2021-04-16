@@ -1,4 +1,5 @@
 import edu.colorado.fantasticfour.game.Game;
+import edu.colorado.fantasticfour.game.LocalGame;
 import edu.colorado.fantasticfour.game.Player;
 import edu.colorado.fantasticfour.location.Location;
 import org.junit.Assert;
@@ -10,22 +11,17 @@ import static junit.framework.TestCase.fail;
 public class SonarClassTest {
     private Player player;
     private Player player2;
-    private Game game;
-    private boolean result;
-    private boolean[] resultList = new boolean[13];
     private Location target;
     private Location location1;
-    private Location location2;
 
 
     @Before
     public void setUp(){
-        game = new Game();
+        Game game = new LocalGame();
         player = game.getPlayer("1");
         player2 = game.getPlayer("2");
         target = new Location(5,5);
         location1 = new Location(5,4);
-        location2 = new Location(6, 4);
     }
 
     @Test
@@ -83,7 +79,7 @@ public class SonarClassTest {
         // now I can use sonar
         player2.placeShip("Minesweeper", location1, "W");
         player.getSonar().useAt(target);
-        resultList = player.getSonar().getSonarResults();
+        boolean[] resultList = player.getSonar().getSonarResults();
         for (int i = 0; i < resultList.length; i++){
             // added == 4 condition to verify process, not permanent
             if ((i == 2) || (i == 3)){

@@ -3,14 +3,15 @@ package edu.colorado.fantasticfour.game;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.ship.Ship;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class Game {
-    private Player player1;
-    private Player player2;
-    private Player playerTurn;
-    private final Scanner scanner;
+public abstract class Game {
+    protected Player player1;
+    protected Player player2;
+    protected Player playerTurn;
+    protected final Scanner scanner;
 
     public Player getPlayer(String player){
         if(player.equals("1")){
@@ -83,7 +84,7 @@ public class Game {
                 System.out.print("Player " + playerStr + ", take a shot: ");
                 String locationStr = scanner.nextLine();
                 Location location = Location.parseLocationString(locationStr);
-                String result = player.takeShot(location);
+                String result = gameTakeShot(player, location);
                 System.out.println("Result: " + result + "\n");
                 break;
             }catch (Exception e){
@@ -92,30 +93,8 @@ public class Game {
         }
     }
 
-    public void loopGame(){
-        while(!(player1.mustSurrender() || player2.mustSurrender())){
-            if(whoseTurn().equals(player1)){
-                // player one takes a shot
-                takeShotFromScanner("1");
-            }else{
-                // player two takes a shot
-                takeShotFromScanner("2");
-            }
-            toggleTurn();
-        }
-        if(player1.mustSurrender()){
-            System.out.println("Congratulations Player 2, you have won the game!");
-        }else{
-            System.out.println("Congratulations Player 1, you have won the game!");
-        }
-    }
+    protected abstract String gameTakeShot(Player player, Location location);
 
-    public void start(){
-        // first order of business is to ask for Locations of player 1 Ships
-        collectShipLocationsFromPlayer("1");
-        // now, ask for player 2's
-        collectShipLocationsFromPlayer("2");
-        // start a simple game
-        loopGame();
-    }
+    public abstract void start() throws IOException;
+    public abstract void loopGame();
 }

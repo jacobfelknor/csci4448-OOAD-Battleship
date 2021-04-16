@@ -1,5 +1,6 @@
 import edu.colorado.fantasticfour.game.Board;
 import edu.colorado.fantasticfour.game.Game;
+import edu.colorado.fantasticfour.game.LocalGame;
 import edu.colorado.fantasticfour.game.Player;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.ship.Ship;
@@ -10,18 +11,15 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-
-import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.fail;
 
 public class PlayerClassTest {
-    private Game game;
     private Player player1;
     private Player player2;
 
     @Before
     public void setUp(){
-        game = new Game();
+        Game game = new LocalGame();
         player1 = game.getPlayer("1");
         player2 = game.getPlayer("2");
     }

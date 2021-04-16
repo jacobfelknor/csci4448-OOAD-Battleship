@@ -1,7 +1,7 @@
 import edu.colorado.fantasticfour.game.Game;
+import edu.colorado.fantasticfour.game.LocalGame;
 import edu.colorado.fantasticfour.game.Player;
 import edu.colorado.fantasticfour.location.Location;
-import edu.colorado.fantasticfour.ship.Ship;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,7 @@ public class MineClassTest {
 
     @Before
     public void setUp(){
-        game = new Game();
+        game = new LocalGame();
         player1 = game.getPlayer("1");
         player2 = game.getPlayer("2");
     }

@@ -1,4 +1,5 @@
 import edu.colorado.fantasticfour.game.Game;
+import edu.colorado.fantasticfour.game.LocalGame;
 import edu.colorado.fantasticfour.game.Player;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.ship.Minesweeper;
@@ -15,7 +16,7 @@ public class MinesweeperClassTest {
 
     @Before
     public void setUp(){
-        Game game = new Game();
+        Game game = new LocalGame();
         player1 = game.getPlayer("1");
         player2 = game.getPlayer("2");
     }
