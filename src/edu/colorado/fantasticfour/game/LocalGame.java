@@ -13,21 +13,57 @@ public class LocalGame extends Game{
     public LocalGame(InputStream in) {
         super(in);
     }
+    //private TerminalGrid tGrid;
+
 
     @Override
     protected String gameTakeShot(Player player, Location location) {
         return player.takeShot(location);
     }
 
+    public void PrintMenu(){
+        System.out.println("1. Take Shot");
+        System.out.println("2. Check Current Weapon");
+        System.out.println("3. Move Fleet");
+        System.out.println("4. Use Sonar");
+        System.out.println("5. Undo Move");
+    }
+
     public void loopGame(){
+        int menuInt = 0;
+
+        boolean flag = true;
         while(!(player1.mustSurrender() || player2.mustSurrender())){
+
             if(whoseTurn().equals(player1)){
                 // player one takes a shot
-                takeShotFromScanner("1");
+                while (flag) {
+                    player1.tGrid.PrintGrid();
+                    this.PrintMenu();
+                    System.out.println("Player 1: ");
+                    String menuStr = scanner.nextLine();
+                    menuInt = Integer.parseInt(menuStr);
+                    menuFromScanner("1", menuInt);
+                    if (menuInt < 6 && menuInt > 0 && menuInt != 2){
+                        flag = false;
+                    }
+                }
+
             }else{
                 // player two takes a shot
-                takeShotFromScanner("2");
+                while (flag) {
+                    player2.tGrid.PrintGrid();
+                    this.PrintMenu();
+                    System.out.println("Player 2: ");
+                    String menuStr = scanner.nextLine();
+                    menuInt = Integer.parseInt(menuStr);
+                    menuFromScanner("2", menuInt);
+                    if (menuInt < 6 && menuInt > 0 && menuInt != 2){
+                        flag = false;
+                    }
+                }
             }
+            flag = true;
             toggleTurn();
         }
         if(player1.mustSurrender()){

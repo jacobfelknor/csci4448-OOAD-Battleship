@@ -16,6 +16,7 @@ public class Player {
     private Board board;
     private Player opponent;
     private List<Ship> ships;
+    public TerminalGrid tGrid;
 
     private Sonar sonar;
     private Weapon attackWeapon;
@@ -36,8 +37,12 @@ public class Player {
         this.minefield = new MineField(this);
         this.undoCommandStack = new Stack<>();
         this.redoCommandStack = new Stack<>();
+        this.tGrid = new TerminalGrid(this);
     }
 
+    public Weapon getAttackWeapon() {
+        return attackWeapon;
+    }
 
     public Board getTheirBoard() {
         return opponent.board;

@@ -64,7 +64,8 @@ public class Sonar extends Weapon {
             if(movesRemain() == 0){
                 throw new IllegalArgumentException("No moves left");
             }else{
-                throw new IllegalArgumentException("Have not sunk opponent ship yet");
+                //throw new IllegalArgumentException("Have not sunk opponent ship yet");
+                System.out.println("Have not sunk");
             }
 
         }

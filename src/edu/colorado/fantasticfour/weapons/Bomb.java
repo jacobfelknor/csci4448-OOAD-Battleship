@@ -8,7 +8,7 @@ public class Bomb extends Weapon{
     public Bomb(Player owner) {
         super(owner);
     }
-
+    private String name = "Bomb";
     /*
     The
     player receives the activation codes for the space laser only after sinking the first

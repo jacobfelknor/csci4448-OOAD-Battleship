@@ -1,5 +1,6 @@
 package edu.colorado.fantasticfour.game;
 
+import edu.colorado.fantasticfour.command.MoveFleetCommand;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.ship.Ship;
 
@@ -75,6 +76,7 @@ public abstract class Game {
         for(Ship ship : player.getAllShips()){
             placeShipFromScanner(ship.getName(), player);
         }
+
     }
 
     public void takeShotFromScanner(String playerStr){
@@ -91,6 +93,36 @@ public abstract class Game {
                 System.out.println("Try Again, " + e.getMessage());
             }
         }
+    }
+
+    public void menuFromScanner(String playerStr, int menuOption){
+        Player player = getPlayer(playerStr);
+        switch (menuOption) {
+            case 1:
+                takeShotFromScanner(playerStr);
+                System.out.println("test1");
+                break;
+            case 2:
+                System.out.println(player.getAttackWeapon().getName());
+                break;
+            case 3:
+                System.out.println("test");
+                break;
+            case 4:
+                System.out.print("Choose an X, Y coordinate: ");
+                String locationStr = scanner.nextLine();
+                Location location = Location.parseLocationString(locationStr);
+                //String result = gameTakeShot(player, location);
+                player.getSonar().useAt(location);
+                break;
+            case 5:
+                player.undoMoveFleet();
+                break;
+            default:
+                System.out.println("Pick Valid Option Please");
+                break;
+        }
+
     }
 
     protected abstract String gameTakeShot(Player player, Location location);

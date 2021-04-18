@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Laser extends Weapon{
+    private String name = "Laser";
 
     public Laser(Player owner) {
         super(owner);
