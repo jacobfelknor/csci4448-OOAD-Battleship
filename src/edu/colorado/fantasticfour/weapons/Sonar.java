@@ -71,23 +71,23 @@ public class Sonar extends Weapon {
         }
         else{
             // top row
-            sonarResults[0] = getSonarAt(target.getX(), target.getY()-2, target.getZ());
+            sonarResults[0] = getSonarAt(target.getX()-2, target.getY(), target.getZ());
             // second row
             sonarResults[1] = getSonarAt(target.getX()-1, target.getY()-1, target.getZ());
-            sonarResults[2] = getSonarAt(target.getX(), target.getY()-1,0);
-            sonarResults[3] = getSonarAt(target.getX()+1, target.getY()-1, target.getZ());
+            sonarResults[2] = getSonarAt(target.getX()-1, target.getY(), target.getZ());
+            sonarResults[3] = getSonarAt(target.getX()-1, target.getY()+1, target.getZ());
             // third row
             // put true for test case, actual code commented out
-            sonarResults[4] = getSonarAt(target.getX()-2, target.getY(), target.getZ());
-            sonarResults[5] = getSonarAt(target.getX()-1, target.getY(), target.getZ());
+            sonarResults[4] = getSonarAt(target.getX(), target.getY()-2, target.getZ());
+            sonarResults[5] = getSonarAt(target.getX(), target.getY()-1, target.getZ());
             sonarResults[6] = getSonarAt(target.getX(), target.getY(), target.getZ());
-            sonarResults[7] = getSonarAt(target.getX()+1,target.getY(), target.getZ());
-            sonarResults[8] = getSonarAt(target.getX()+2, target.getY(), target.getZ());
+            sonarResults[7] = getSonarAt(target.getX(),target.getY()+1, target.getZ());
+            sonarResults[8] = getSonarAt(target.getX(), target.getY()+2, target.getZ());
             // fourth row
-            sonarResults[9] = getSonarAt(target.getX()-1, target.getY()+1, target.getZ());
-            sonarResults[10] = getSonarAt(target.getX(), target.getY()+1, target.getZ());
+            sonarResults[9] = getSonarAt(target.getX()+1, target.getY()-1, target.getZ());
+            sonarResults[10] = getSonarAt(target.getX()+1, target.getY(), target.getZ());
             sonarResults[11] = getSonarAt(target.getX()+1, target.getY()+1, target.getZ());
-            sonarResults[12] = getSonarAt(target.getX(), target.getY()+2, target.getZ());
+            sonarResults[12] = getSonarAt(target.getX()+2, target.getY(), target.getZ());
 
             sonarMovesLeft -= 1;
         }

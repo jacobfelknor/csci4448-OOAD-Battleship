@@ -90,7 +90,9 @@ public class Player {
                return ship;
            }
         }
-        throw new IllegalArgumentException("Ship not found");
+        //throw new IllegalArgumentException("Ship not found");
+        //System.out.println("Ship not found");
+        return null;
     }
 
     public void setOpponent(Player opp){

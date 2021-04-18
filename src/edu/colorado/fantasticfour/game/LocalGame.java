@@ -24,8 +24,8 @@ public class LocalGame extends Game{
     public void PrintMenu(){
         System.out.println("1. Take Shot");
         System.out.println("2. Check Current Weapon");
-        System.out.println("3. Move Fleet");
-        System.out.println("4. Use Sonar");
+        System.out.println("3. Use Sonar");
+        System.out.println("4. Move Fleet");
         System.out.println("5. Undo Move");
     }
 
@@ -38,6 +38,7 @@ public class LocalGame extends Game{
             if(whoseTurn().equals(player1)){
                 // player one takes a shot
                 while (flag) {
+                    player1.tGrid.FillGrid(player1);
                     player1.tGrid.PrintGrid();
                     this.PrintMenu();
                     System.out.println("Player 1: ");
@@ -52,6 +53,7 @@ public class LocalGame extends Game{
             }else{
                 // player two takes a shot
                 while (flag) {
+                    player2.tGrid.FillGrid(player2);
                     player2.tGrid.PrintGrid();
                     this.PrintMenu();
                     System.out.println("Player 2: ");
@@ -75,9 +77,11 @@ public class LocalGame extends Game{
 
     public void start(){
         // first order of business is to ask for Locations of player 1 Ships
-        collectShipLocationsFromPlayer("1");
+        //collectShipLocationsFromPlayer("1");
+        collectShipLocationsFromPlayer();
         // now, ask for player 2's
-        collectShipLocationsFromPlayer("2");
+        //collectShipLocationsFromPlayer("2");
+        collectShipLocationsFromPlayer();
         // start a simple game
         loopGame();
     }

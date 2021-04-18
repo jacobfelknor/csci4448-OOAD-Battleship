@@ -3,9 +3,11 @@ package edu.colorado.fantasticfour.game;
 import edu.colorado.fantasticfour.command.MoveFleetCommand;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.ship.Ship;
+import edu.colorado.fantasticfour.weapons.Sonar;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public abstract class Game {
@@ -69,6 +71,24 @@ public abstract class Game {
         }
     }
 
+    // method for testing - quick place ship
+    public void collectShipLocationsFromPlayer(){
+        Player player1 = this.getPlayer("1");
+        Player player2 = this.getPlayer("2");
+        Location location1 = new Location(6, 4);
+        Location location2 = new Location(2, 9);
+        Location location3 = new Location(4, 8);
+        Location location4 = new Location(5, 5, -1);
+        player1.placeShip("Minesweeper",  location1, "E");
+        player1.placeShip("Destroyer",  location2, "W");
+        player1.placeShip("Battleship",  location3, "N");
+        player1.placeShip("Submarine",  location4, "NE");
+        player2.placeShip("Minesweeper",  location1, "E");
+        player2.placeShip("Destroyer",  location2, "W");
+        player2.placeShip("Battleship",  location3, "E");
+        player2.placeShip("Submarine",  location4, "NE");
+
+    }
     public void collectShipLocationsFromPlayer(String playerStr){
         Player player = this.getPlayer(playerStr);
         System.out.println("Player " + playerStr + ", welcome to Battleship. Please" +
@@ -76,6 +96,160 @@ public abstract class Game {
         for(Ship ship : player.getAllShips()){
             placeShipFromScanner(ship.getName(), player);
         }
+
+    }
+
+    public void sonarFromScanner(String playerStr, boolean[] sonarResults, String target){
+        Player player = getPlayer(playerStr);
+        int targetX = Integer.parseInt(target.substring(0, 1));
+        int targetY = Integer.parseInt(target.substring(2, 3));
+        //Location sonarLocs[] = new Location[];
+        //ArrayList<Location> sonarLocations = new ArrayList<Location>();
+        //Player opponent = player.getOpponent();
+        if (sonarResults[0]){
+            int row = targetX -2;
+            int col = targetY;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarHitLedger.add(locationStr);
+        }else{
+            int row = targetX -2;
+            int col = targetY;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarMissLedger.add(locationStr);
+        }
+        if (sonarResults[1]){
+            int row = targetX -1;
+            int col = targetY -1;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarHitLedger.add(locationStr);
+        }else{
+            int row = targetX -1;
+            int col = targetY -1;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarMissLedger.add(locationStr);
+        }
+        if (sonarResults[2]){
+            int row = targetX -1;
+            int col = targetY;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarHitLedger.add(locationStr);
+        }else{//#
+            int row = targetX -1;
+            int col = targetY;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarMissLedger.add(locationStr);
+        }
+        if (sonarResults[3]){
+            int row = targetX -1;
+            int col = targetY +1;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarHitLedger.add(locationStr);
+        }else{
+            int row = targetX -1;
+            int col = targetY +1;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarMissLedger.add(locationStr);
+        }
+        if (sonarResults[4]){
+            int row = targetX;
+            int col = targetY -2;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarHitLedger.add(locationStr);
+        }else{
+            int row = targetX;
+            int col = targetY -2;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarMissLedger.add(locationStr);
+        }
+        if (sonarResults[5]){
+            int row = targetX;
+            int col = targetY -1;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarHitLedger.add(locationStr);
+        }else{
+            int row = targetX;
+            int col = targetY -1;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarMissLedger.add(locationStr);
+        }
+        if (sonarResults[6]){
+            int row = targetX;
+            int col = targetY;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarHitLedger.add(locationStr);
+        }else{
+            int row = targetX;
+            int col = targetY;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarMissLedger.add(locationStr);
+        }
+        if (sonarResults[7]){
+            int row = targetX;
+            int col = targetY +1;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarHitLedger.add(locationStr);
+        }else{
+            int row = targetX;
+            int col = targetY +1;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarMissLedger.add(locationStr);
+        }
+        if (sonarResults[8]){
+            int row = targetX;
+            int col = targetY +2;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarHitLedger.add(locationStr);
+        }else{
+            int row = targetX;
+            int col = targetY +2;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarMissLedger.add(locationStr);
+        }
+        if (sonarResults[9]){
+            int row = targetX +1;
+            int col = targetY -1;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarHitLedger.add(locationStr);
+        }else{
+            int row = targetX +1;
+            int col = targetY -1;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarMissLedger.add(locationStr);
+        }
+        if (sonarResults[10]){
+            int row = targetX +1;
+            int col = targetY;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarHitLedger.add(locationStr);
+        }else{
+            int row = targetX +1;
+            int col = targetY;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarMissLedger.add(locationStr);
+        }
+        if (sonarResults[11]){
+            int row = targetX +1;
+            int col = targetY +1;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarHitLedger.add(locationStr);
+        }else{
+            int row = targetX +1;
+            int col = targetY +1;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarMissLedger.add(locationStr);
+        }
+        if (sonarResults[12]){
+            int row = targetX +2;
+            int col = targetY;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarHitLedger.add(locationStr);
+        }else{
+            int row = targetX +2;
+            int col = targetY;
+            String locationStr = String.valueOf(row) + " " + String.valueOf(col);
+            player.tGrid.sonarMissLedger.add(locationStr);
+        }
+        //player.tGrid.hitLedger.add(locationStr)
 
     }
 
@@ -87,6 +261,14 @@ public abstract class Game {
                 String locationStr = scanner.nextLine();
                 Location location = Location.parseLocationString(locationStr);
                 String result = gameTakeShot(player, location);
+                if (result == "HIT"){
+                    player.tGrid.hitLedger.add(locationStr);
+                }else if(result == "SUNK"){
+                    //get all cells from ship and add to hitLedger
+                    player.tGrid.hitLedger.add(locationStr);
+                }else{
+                    player.tGrid.missLedger.add(locationStr);
+                }
                 System.out.println("Result: " + result + "\n");
                 break;
             }catch (Exception e){
@@ -100,20 +282,22 @@ public abstract class Game {
         switch (menuOption) {
             case 1:
                 takeShotFromScanner(playerStr);
-                System.out.println("test1");
+                //System.out.println("test1");
                 break;
             case 2:
                 System.out.println(player.getAttackWeapon().getName());
                 break;
             case 3:
-                System.out.println("test");
-                break;
-            case 4:
                 System.out.print("Choose an X, Y coordinate: ");
                 String locationStr = scanner.nextLine();
                 Location location = Location.parseLocationString(locationStr);
                 //String result = gameTakeShot(player, location);
                 player.getSonar().useAt(location);
+                boolean sonarList[] = player.getSonar().getSonarResults();
+                sonarFromScanner(playerStr, sonarList, locationStr);
+                break;
+            case 4:
+                System.out.println("Fleet Not Moved");
                 break;
             case 5:
                 player.undoMoveFleet();
