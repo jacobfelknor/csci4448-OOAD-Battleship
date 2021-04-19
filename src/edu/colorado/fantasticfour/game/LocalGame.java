@@ -23,10 +23,10 @@ public class LocalGame extends Game{
 
     public void PrintMenu(){
         System.out.println("1. Take Shot");
-        System.out.println("2. Check Current Weapon");
-        System.out.println("3. Use Sonar");
-        System.out.println("4. Move Fleet");
-        System.out.println("5. Undo Move");
+        //System.out.println("2. Check Current Weapon");
+        System.out.println("2. Use Sonar");
+        System.out.println("3. Move Fleet");
+        System.out.println("4. Undo Move");
     }
 
     public void loopGame(){
@@ -44,8 +44,15 @@ public class LocalGame extends Game{
                     System.out.println("Player 1: ");
                     String menuStr = scanner.nextLine();
                     menuInt = Integer.parseInt(menuStr);
+
+                    if (menuInt == 2 && !player1.getSonar().canUseSonar()){
+                        menuInt = -1;
+                        System.out.println("Sonar is offline");
+                        System.out.println("Please choose again");
+                        System.out.println();
+                    }
                     menuFromScanner("1", menuInt);
-                    if (menuInt < 6 && menuInt > 0 && menuInt != 2){
+                    if (menuInt < 5 && menuInt > 0 ){
                         flag = false;
                     }
                 }
@@ -59,8 +66,15 @@ public class LocalGame extends Game{
                     System.out.println("Player 2: ");
                     String menuStr = scanner.nextLine();
                     menuInt = Integer.parseInt(menuStr);
+
+                    if (menuInt == 2 && !player2.getSonar().canUseSonar()){
+                        menuInt = -1;
+                        System.out.println("Sonar is offline");
+                        System.out.println("Please choose again");
+                        System.out.println();
+                    }
                     menuFromScanner("2", menuInt);
-                    if (menuInt < 6 && menuInt > 0 && menuInt != 2){
+                    if (menuInt < 5 && menuInt > 0){
                         flag = false;
                     }
                 }
@@ -77,11 +91,14 @@ public class LocalGame extends Game{
 
     public void start(){
         // first order of business is to ask for Locations of player 1 Ships
-        //collectShipLocationsFromPlayer("1");
-        collectShipLocationsFromPlayer();
+
+        collectShipLocationsFromPlayer("1");
+        //collectShipLocationsFromPlayer();
+
         // now, ask for player 2's
-        //collectShipLocationsFromPlayer("2");
-        collectShipLocationsFromPlayer();
+        collectShipLocationsFromPlayer("2");
+        //collectShipLocationsFromPlayer();
+
         // start a simple game
         loopGame();
     }

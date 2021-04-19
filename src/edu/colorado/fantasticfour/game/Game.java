@@ -8,6 +8,7 @@ import edu.colorado.fantasticfour.weapons.Sonar;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public abstract class Game {
@@ -256,24 +257,62 @@ public abstract class Game {
     public void takeShotFromScanner(String playerStr){
         Player player = getPlayer(playerStr);
         while (true){
-            try{
-                System.out.print("Player " + playerStr + ", take a shot: ");
-                String locationStr = scanner.nextLine();
-                Location location = Location.parseLocationString(locationStr);
-                String result = gameTakeShot(player, location);
-                if (result == "HIT"){
+//            try{
+            System.out.print("Player " + playerStr + ", take a shot: ");
+            String locationStr = scanner.nextLine();
+            Location location = Location.parseLocationString(locationStr);
+            String result = gameTakeShot(player, location);
+//            if (player.getAfloatShips().size() < 2){
+//                String results = gameTakeDoubleShot(location);
+//            }
+            int zL = location.getZ();
+
+            if (result == "HIT"){
+                Ship newShip = player.getOpponent().getShipAt(location);
+                if (newShip.getName() == "Submarine"){
+                    player.tGrid.subHitLedger.add(locationStr);
                     player.tGrid.hitLedger.add(locationStr);
-                }else if(result == "SUNK"){
-                    //get all cells from ship and add to hitLedger
+                }else {
                     player.tGrid.hitLedger.add(locationStr);
-                }else{
+                }
+                //player.tGrid.hitLedger.add(locationStr);
+            }else if(result == "SUNK"){
+                //get all cells from ship and add to hitLedger
+                // newList = sunk ship cells
+
+                Ship newShip = player.getOpponent().getShipAt(location);
+                String orientation = newShip.getOrientation();
+                List<Location> sunkLocations = newShip.getDimensions(location, orientation);
+
+                for (int i = 0; i < sunkLocations.size(); i++) {
+                    Location sunkCell = sunkLocations.get(i);
+                    int x = sunkCell.getX();
+                    int y = sunkCell.getY();
+                    int z = sunkCell.getZ();
+
+                    String locationStr2 = Integer.toString(x) + " " + Integer.toString(y) + " " + Integer.toString(z);
+
+                    //if (newShip.getName() == "Submarine"){
+                    if (z < 0){
+                        player.tGrid.subHitLedger.add(locationStr2);
+                    }else {
+                        player.tGrid.hitLedger.add(locationStr2);
+                    }
+                }
+                player.tGrid.hitLedger.add(locationStr);
+            }else{
+                //Ship newShip = player.getOpponent().getShipAt(location);
+                if (zL < 0){
+                    player.tGrid.subMissLedger.add(locationStr);
+                }else {
                     player.tGrid.missLedger.add(locationStr);
                 }
-                System.out.println("Result: " + result + "\n");
-                break;
-            }catch (Exception e){
-                System.out.println("Try Again, " + e.getMessage());
             }
+            System.out.println("Result: " + result + "\n");
+            break;
+//            }catch (Exception e){
+//                System.out.println("Try Again, " + e.getMessage());
+//            }
         }
     }
 
@@ -285,22 +324,25 @@ public abstract class Game {
                 //System.out.println("test1");
                 break;
             case 2:
-                System.out.println(player.getAttackWeapon().getName());
-                break;
-            case 3:
                 System.out.print("Choose an X, Y coordinate: ");
                 String locationStr = scanner.nextLine();
                 Location location = Location.parseLocationString(locationStr);
                 //String result = gameTakeShot(player, location);
-                player.getSonar().useAt(location);
-                boolean sonarList[] = player.getSonar().getSonarResults();
-                sonarFromScanner(playerStr, sonarList, locationStr);
+                if (player.getSonar().canUseSonar()) {
+                    player.getSonar().useAt(location);
+                    boolean sonarList[] = player.getSonar().getSonarResults();
+                    sonarFromScanner(playerStr, sonarList, locationStr);
+                }
+                break;
+            case 3:
+                System.out.println("Available next version");
+//                System.out.print("Choose a direction(N, S, E, W): ");
+//                String moveStr = scanner.nextLine();
+//                player.moveFleet(moveStr);
                 break;
             case 4:
-                System.out.println("Fleet Not Moved");
-                break;
-            case 5:
-                player.undoMoveFleet();
+                System.out.println("Available next version");
+                //player.undoMoveFleet();
                 break;
             default:
                 System.out.println("Pick Valid Option Please");
@@ -310,6 +352,7 @@ public abstract class Game {
     }
 
     protected abstract String gameTakeShot(Player player, Location location);
+    //protected abstract List<String> gameTakeDoubleShot(Location location, Location location2);
 
     public abstract void start() throws IOException;
     public abstract void loopGame();
