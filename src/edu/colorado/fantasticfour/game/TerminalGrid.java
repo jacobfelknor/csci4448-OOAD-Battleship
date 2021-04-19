@@ -64,7 +64,7 @@ public class TerminalGrid {
         System.out.println();
     }
 
-    public void FillGrid(Player player){
+    public void FillGrid(){
 
 
         for (int i = 0; i < 10; i++){
@@ -76,10 +76,10 @@ public class TerminalGrid {
                     gridSurf[i][j] = ".";
                 }
                 else if (player.getShipAt(location) != null && player.getShipAt(location2) != null){
-                    gridSurf[i][j] = "B";
+                    gridSurf[i][j] = "0";
                 }
                 else if (player.getShipAt(location) == null && player.getShipAt(location2) != null){
-                    gridSurf[i][j] = "s";
+                    gridSurf[i][j] = "=";
                 }else {
                     gridSurf[i][j] = "o";
                 }
@@ -118,7 +118,7 @@ public class TerminalGrid {
             String missStr = sonarMissLedger.get(i);
             int row = Integer.parseInt(missStr.substring(0, 1));
             int col = Integer.parseInt(missStr.substring(2, 3));
-            gridSurfHit[row][col] = "~";
+            gridSurfHit[row][col] = "*";
         }
 
         for (int i = 0; i < missLedger.size(); i++){
@@ -144,7 +144,7 @@ public class TerminalGrid {
             }else if(gridSurfHit[row][col] == "x"){
                 gridSurfHit[row][col] = "Z";
             }else {
-                gridSurfHit[row][col] = "*";
+                gridSurfHit[row][col] = "~";
             }
         }
 
@@ -153,11 +153,11 @@ public class TerminalGrid {
             int row = Integer.parseInt(hitStr.substring(0, 1));
             int col = Integer.parseInt(hitStr.substring(2, 3));
             if (gridSurfHit[row][col] == "o"){
-                gridSurfHit[row][col] = "E";
+                gridSurfHit[row][col] = "0";
             }else if(gridSurfHit[row][col] == "x"){
-                gridSurfHit[row][col] = "Q";
+                gridSurfHit[row][col] = "=";
             }else {
-                gridSurfHit[row][col] = "s";
+                gridSurfHit[row][col] = "=";
             }
         }
 

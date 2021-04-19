@@ -38,7 +38,7 @@ public class LocalGame extends Game{
             if(whoseTurn().equals(player1)){
                 // player one takes a shot
                 while (flag) {
-                    player1.tGrid.FillGrid(player1);
+                    player1.tGrid.FillGrid();
                     player1.tGrid.PrintGrid();
                     this.PrintMenu();
                     System.out.println("Player 1: ");
@@ -60,7 +60,7 @@ public class LocalGame extends Game{
             }else{
                 // player two takes a shot
                 while (flag) {
-                    player2.tGrid.FillGrid(player2);
+                    player2.tGrid.FillGrid();
                     player2.tGrid.PrintGrid();
                     this.PrintMenu();
                     System.out.println("Player 2: ");
@@ -81,6 +81,7 @@ public class LocalGame extends Game{
             }
             flag = true;
             toggleTurn();
+
         }
         if(player1.mustSurrender()){
             System.out.println("Congratulations Player 2, you have won the game!");
@@ -92,12 +93,12 @@ public class LocalGame extends Game{
     public void start(){
         // first order of business is to ask for Locations of player 1 Ships
 
-        collectShipLocationsFromPlayer("1");
-        //collectShipLocationsFromPlayer();
+        //collectShipLocationsFromPlayer("1");
+        collectShipLocationsFromPlayer();
 
         // now, ask for player 2's
-        collectShipLocationsFromPlayer("2");
-        //collectShipLocationsFromPlayer();
+        //collectShipLocationsFromPlayer("2");
+        collectShipLocationsFromPlayer();
 
         // start a simple game
         loopGame();

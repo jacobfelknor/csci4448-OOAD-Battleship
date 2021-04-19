@@ -23,4 +23,5 @@ public class Bomb extends Weapon{
         Cell targetCell = this.owner.getTheirBoard().getCellAt(location);
         return targetCell.notifyObservers();
     }
+
 }
