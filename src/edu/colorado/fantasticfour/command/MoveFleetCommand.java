@@ -9,6 +9,9 @@ import java.util.List;
 
 public class MoveFleetCommand implements Command{
     private Player owner;
+
+
+
     private List<Ship> affectedShips;
     private String direction;
     public static String oppositeDirectionOf(String direction){

@@ -40,10 +40,6 @@ public class Player {
         this.tGrid = new TerminalGrid(this);
     }
 
-    public Weapon getAttackWeapon() {
-        return attackWeapon;
-    }
-
     public Board getTheirBoard() {
         return opponent.board;
     }

@@ -40,11 +40,11 @@ public class NetworkTest {
         }
     }
 
-    @Test
-    public void tearDownProperly(){
-        // this test need not do anything... just ensuring my
-        // destroy methods work correctly
-        // This will fail if sockets are not closed correctly
-    }
+//    @Test
+//    public void tearDownProperly(){
+//        // this test need not do anything... just ensuring my
+//        // destroy methods work correctly
+//        // This will fail if sockets are not closed correctly
+//    }
 
 }

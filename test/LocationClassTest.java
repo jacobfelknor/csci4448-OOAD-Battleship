@@ -104,4 +104,10 @@ public class LocationClassTest {
         Location location = new Location(7,8);
         Assert.assertEquals("Location<(7,8,0)>", location.toString());
     }
+
+    @Test
+    public void toSimpleStringTest(){
+        Location location = new Location(7,8, -1);
+        Assert.assertEquals("7 8 -1", location.toSimpleString());
+    }
 }

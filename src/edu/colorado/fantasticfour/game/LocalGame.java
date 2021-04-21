@@ -45,14 +45,24 @@ public class LocalGame extends Game{
                     String menuStr = scanner.nextLine();
                     menuInt = Integer.parseInt(menuStr);
 
+                    if (menuInt == 4){
+                        try{
+                            menuFromScanner("1", menuInt);
+                            flag = false;
+                        }catch(IllegalArgumentException e){
+                            flag = true;
+                        }
+                    }
+
                     if (menuInt == 2 && !player1.getSonar().canUseSonar()){
                         menuInt = -1;
                         System.out.println("Sonar is offline");
                         System.out.println("Please choose again");
                         System.out.println();
                     }
-                    menuFromScanner("1", menuInt);
-                    if (menuInt < 5 && menuInt > 0 ){
+
+                    if (menuInt < 4 && menuInt > 0){
+                        menuFromScanner("1", menuInt);
                         flag = false;
                     }
                 }
@@ -67,14 +77,24 @@ public class LocalGame extends Game{
                     String menuStr = scanner.nextLine();
                     menuInt = Integer.parseInt(menuStr);
 
+                    if (menuInt == 4){
+                        try{
+                            menuFromScanner("1", menuInt);
+                            flag = false;
+                        }catch(IllegalArgumentException e){
+                            flag = true;
+                        }
+                    }
+
                     if (menuInt == 2 && !player2.getSonar().canUseSonar()){
                         menuInt = -1;
                         System.out.println("Sonar is offline");
                         System.out.println("Please choose again");
                         System.out.println();
                     }
-                    menuFromScanner("2", menuInt);
-                    if (menuInt < 5 && menuInt > 0){
+
+                    if (menuInt < 4 && menuInt > 0){
+                        menuFromScanner("2", menuInt);
                         flag = false;
                     }
                 }
