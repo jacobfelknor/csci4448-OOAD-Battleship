@@ -10,7 +10,6 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         // write your code here
-<<<<<<< Updated upstream
         //Game game = new NetworkGame();
         Game game = new LocalGame();
         game.start();
