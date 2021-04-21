@@ -14,8 +14,5 @@ public class Main {
         //Game game = new NetworkGame();
         Game game = new LocalGame();
         game.start();
-=======
-
->>>>>>> Stashed changes
     }
 }
