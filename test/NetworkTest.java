@@ -4,9 +4,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.io.IOException;
-
 import static org.junit.Assert.fail;
 
 public class NetworkTest {
@@ -39,12 +37,4 @@ public class NetworkTest {
             fail();
         }
     }
-
-//    @Test
-//    public void tearDownProperly(){
-//        // this test need not do anything... just ensuring my
-//        // destroy methods work correctly
-//        // This will fail if sockets are not closed correctly
-//    }
-
 }

@@ -2,7 +2,6 @@ package edu.colorado.fantasticfour.ship;
 
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.location.ShipGPS;
-
 import java.util.ArrayList;
 import java.util.List;
 

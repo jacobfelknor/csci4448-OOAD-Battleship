@@ -22,7 +22,7 @@ public class Location{
     public Location(int x, int y){
         this.x = x;
         this.y = y;
-//      assuming z is 0 if not specified
+        // assuming z is 0 if not specified
         this.z = 0;
     }
 

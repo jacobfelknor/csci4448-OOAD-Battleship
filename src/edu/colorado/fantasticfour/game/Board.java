@@ -1,7 +1,6 @@
 package edu.colorado.fantasticfour.game;
 
 import edu.colorado.fantasticfour.location.Location;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +25,7 @@ public class Board {
         assert grid.size() == gridCol*gridRow*gridLayers;
         this.player = player;
     }
-    //i,j,k:false
-    //i,j,k:true
+
     public boolean isOnBoard(Location location){
         return this.grid.containsKey(location);
     }
@@ -63,13 +61,4 @@ public class Board {
     public Player getPlayer() {
         return player;
     }
-
-//    @Override
-//    public String toString(){
-//        // I want to create a print board method here. May be difficult...
-//        // How to represent the z layers?
-//        // currently aren't keeping track of where shots are attempted. Would need to do this
-//        return super.toString();
-//    }
-
 }

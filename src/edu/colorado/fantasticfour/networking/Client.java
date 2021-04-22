@@ -7,7 +7,7 @@ import java.net.Socket;
 
 public class Client {
     private Socket socket;
-//    private DataInputStream input;
+    private DataInputStream input;
     private DataOutputStream out;
 
     public Client(String address, int port) throws IOException {

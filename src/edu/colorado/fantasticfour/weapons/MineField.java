@@ -2,7 +2,6 @@ package edu.colorado.fantasticfour.weapons;
 
 import edu.colorado.fantasticfour.game.Player;
 import edu.colorado.fantasticfour.location.Location;
-
 import java.util.ArrayList;
 import java.util.List;
 

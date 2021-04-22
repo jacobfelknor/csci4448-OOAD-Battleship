@@ -9,11 +9,6 @@ public class Bomb extends Weapon{
         super(owner);
     }
     private String name = "Bomb";
-    /*
-    The
-    player receives the activation codes for the space laser only after sinking the first
-    enemy ship (i.e. this weapon is an upgrade, and replaces the conventional bomb in the
-            player’s arsenal). In the future we might add new types of weapons*/
 
     @Override
     public String useAt(Location location) {

@@ -9,9 +9,9 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        // write your code here
-        //Game game = new NetworkGame();
-        Game game = new LocalGame();
-        game.start();
+
+        Game networkGame = new NetworkGame();
+        Game localGame = new LocalGame();
+        localGame.start();
     }
 }

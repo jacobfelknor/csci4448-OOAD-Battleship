@@ -7,10 +7,8 @@ import edu.colorado.fantasticfour.ship.Ship;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.List;
-
 import static junit.framework.TestCase.fail;
 
 public class PlayerClassTest {
@@ -117,5 +115,4 @@ public class PlayerClassTest {
         List<String> actual = player1.takeDoubleShot(new Location(3, 4), new Location(5, 3));
         Assert.assertEquals(expected, actual);
     }
-
 }

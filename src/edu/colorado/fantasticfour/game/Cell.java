@@ -3,7 +3,6 @@ package edu.colorado.fantasticfour.game;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.observer.Observer;
 import edu.colorado.fantasticfour.observer.Subject;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

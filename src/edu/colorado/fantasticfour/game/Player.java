@@ -5,7 +5,6 @@ import edu.colorado.fantasticfour.command.MoveFleetCommand;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.ship.*;
 import edu.colorado.fantasticfour.weapons.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -86,8 +85,6 @@ public class Player {
                return ship;
            }
         }
-        //throw new IllegalArgumentException("Ship not found");
-        //System.out.println("Ship not found");
         return null;
     }
 

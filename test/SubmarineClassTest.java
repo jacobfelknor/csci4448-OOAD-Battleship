@@ -7,7 +7,6 @@ import edu.colorado.fantasticfour.ship.Ship;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import static junit.framework.TestCase.fail;
 
 public class SubmarineClassTest {

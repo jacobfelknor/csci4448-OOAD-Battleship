@@ -3,14 +3,11 @@ package edu.colorado.fantasticfour.command;
 import edu.colorado.fantasticfour.game.Player;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.ship.Ship;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class MoveFleetCommand implements Command{
     private Player owner;
-
-
 
     private List<Ship> affectedShips;
     private String direction;

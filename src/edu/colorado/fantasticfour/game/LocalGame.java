@@ -1,7 +1,6 @@
 package edu.colorado.fantasticfour.game;
 
 import edu.colorado.fantasticfour.location.Location;
-
 import java.io.InputStream;
 
 public class LocalGame extends Game{
@@ -13,8 +12,6 @@ public class LocalGame extends Game{
     public LocalGame(InputStream in) {
         super(in);
     }
-    //private TerminalGrid tGrid;
-
 
     @Override
     protected String gameTakeShot(Player player, Location location) {
@@ -23,7 +20,6 @@ public class LocalGame extends Game{
 
     public void PrintMenu(){
         System.out.println("1. Take Shot");
-        //System.out.println("2. Check Current Weapon");
         System.out.println("2. Use Sonar");
         System.out.println("3. Move Fleet");
         System.out.println("4. Undo Move");
@@ -32,12 +28,15 @@ public class LocalGame extends Game{
     public void loopGame(){
         int menuInt = 0;
 
+        // loop until surrender
+        // flag for toggle turn
         boolean flag = true;
         while(!(player1.mustSurrender() || player2.mustSurrender())){
 
             if(whoseTurn().equals(player1)){
                 // player one takes a shot
                 while (flag) {
+                    // grid logic/print
                     player1.tGrid.FillGrid();
                     player1.tGrid.PrintGrid();
                     this.PrintMenu();
@@ -45,6 +44,7 @@ public class LocalGame extends Game{
                     String menuStr = scanner.nextLine();
                     menuInt = Integer.parseInt(menuStr);
 
+                    // menu logic
                     if (menuInt == 4){
                         try{
                             menuFromScanner("1", menuInt);
@@ -111,16 +111,16 @@ public class LocalGame extends Game{
     }
 
     public void start(){
-        // first order of business is to ask for Locations of player 1 Ships
 
-        //collectShipLocationsFromPlayer("1");
-        collectShipLocationsFromPlayer();
+        // prompt players for mine locations
+        //collectMineLocationsFromPlayer("1");
+        //collectMineLocationsFromPlayer("2");
 
-        // now, ask for player 2's
-        //collectShipLocationsFromPlayer("2");
-        collectShipLocationsFromPlayer();
+        // prompt players for ship locations
+        collectShipLocationsFromPlayer("1");
+        collectShipLocationsFromPlayer("2");
 
-        // start a simple game
+        // start game
         loopGame();
     }
 }

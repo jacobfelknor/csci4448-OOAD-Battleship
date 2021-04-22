@@ -1,13 +1,8 @@
 package edu.colorado.fantasticfour.ship;
 
-//import org.jetbrains.annotations.NotNull;
-
-// This is the  baseclass for your ship.  Modify accordingly
-
 import edu.colorado.fantasticfour.game.Cell;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.location.ShipGPS;
-
 import java.util.List;
 
 public abstract class Ship {

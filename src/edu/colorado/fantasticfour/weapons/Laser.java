@@ -3,11 +3,8 @@ package edu.colorado.fantasticfour.weapons;
 import edu.colorado.fantasticfour.game.Cell;
 import edu.colorado.fantasticfour.game.Player;
 import edu.colorado.fantasticfour.location.Location;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Laser extends Weapon{
     private String name = "Laser";

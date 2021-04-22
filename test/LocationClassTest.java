@@ -1,7 +1,6 @@
 import edu.colorado.fantasticfour.location.Location;
 import org.junit.Assert;
 import org.junit.Test;
-
 import static org.junit.Assert.fail;
 
 public class LocationClassTest {

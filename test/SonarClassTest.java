@@ -14,7 +14,6 @@ public class SonarClassTest {
     private Location target;
     private Location location1;
 
-
     @Before
     public void setUp(){
         Game game = new LocalGame();
@@ -80,14 +79,6 @@ public class SonarClassTest {
         player2.placeShip("Minesweeper", location1, "W");
         player.getSonar().useAt(target);
         boolean[] resultList = player.getSonar().getSonarResults();
-//        for (int i = 0; i < resultList.length; i++){
-//            // added == 4 condition to verify process, not permanent
-//            if ((i == 2) || (i == 3)){
-//                Assert.assertFalse(resultList[i]);
-//            }else {
-//                Assert.assertFalse(resultList[i]);
-//            }
-//        }
         Assert.assertTrue(resultList.length > 0);
         Assert.assertTrue(resultList.length < 14);
     }
@@ -107,9 +98,7 @@ public class SonarClassTest {
         Location location = new Location(0,0,0);
         player2.placeShip("Minesweeper", location, "W");
         player.takeShot(location);
-
         player.getSonar().useAt(location);
-
         Assert.assertEquals(location, player.getSonar().getTarget());
     }
 
@@ -146,5 +135,4 @@ public class SonarClassTest {
             Assert.assertTrue(e.getMessage().startsWith("Location does not exist on this board"));
         }
     }
-
 }

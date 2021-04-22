@@ -24,7 +24,6 @@ public class MoveFleetCommandTest {
         player.placeShip("Submarine", new Location(2,6,-1), "NE");
     }
 
-
     @Test
     public void canMoveFleetValid(){
         generateTestCaseOne();

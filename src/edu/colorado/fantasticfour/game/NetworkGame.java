@@ -3,7 +3,6 @@ package edu.colorado.fantasticfour.game;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.networking.Client;
 import edu.colorado.fantasticfour.networking.Server;
-
 import java.io.IOException;
 
 public class NetworkGame extends Game{
@@ -27,7 +26,6 @@ public class NetworkGame extends Game{
         Thread.sleep(1000);
         client = new Client("127.0.0.1", JOINER_SERVER_PORT);
     }
-
 
     private void joinServer() throws IOException {
         // join the server the creator should have created for us
