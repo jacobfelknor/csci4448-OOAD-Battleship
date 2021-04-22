@@ -1,15 +1,11 @@
 import edu.colorado.fantasticfour.command.MoveFleetCommand;
-import edu.colorado.fantasticfour.game.Cell;
 import edu.colorado.fantasticfour.game.Game;
+import edu.colorado.fantasticfour.game.LocalGame;
 import edu.colorado.fantasticfour.game.Player;
 import edu.colorado.fantasticfour.location.Location;
-import edu.colorado.fantasticfour.ship.Ship;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MoveFleetCommandTest {
     Game game;
@@ -17,7 +13,7 @@ public class MoveFleetCommandTest {
 
     @Before
     public void setUp(){
-        game = new Game();
+        game = new LocalGame();
         player = game.getPlayer("1");
     }
 
@@ -27,7 +23,6 @@ public class MoveFleetCommandTest {
         player.placeShip("Destroyer", new Location(5, 2), "N");
         player.placeShip("Submarine", new Location(2,6,-1), "NE");
     }
-
 
     @Test
     public void canMoveFleetValid(){

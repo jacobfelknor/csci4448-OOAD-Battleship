@@ -1,4 +1,5 @@
 import edu.colorado.fantasticfour.game.Game;
+import edu.colorado.fantasticfour.game.LocalGame;
 import edu.colorado.fantasticfour.game.Player;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.ship.Battleship;
@@ -6,7 +7,6 @@ import edu.colorado.fantasticfour.ship.Ship;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import static junit.framework.TestCase.fail;
 
 public class BattleshipClassTest {
@@ -15,7 +15,7 @@ public class BattleshipClassTest {
 
     @Before
     public void setUp(){
-        Game game = new Game();
+        Game game = new LocalGame();
         player1 = game.getPlayer("1");
         player2 = game.getPlayer("2");
     }

@@ -4,9 +4,7 @@ import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.game.Player;
 
 public class Sonar extends Weapon {
-    //gotta think about delegation
 
-    //public int movesLeft = 2;
     public int sonarMovesLeft = 2;
     private Player owner;
     private boolean[] sonarResults = new boolean[13];
@@ -22,7 +20,7 @@ public class Sonar extends Weapon {
 
     @Override
     public String useAt(Location location) {
-        //checking to see if ysonar is on surface and not under water
+        //checking to see if location is on surface and not under water
         if(this.owner.getTheirBoard().isBelowSurface(location)){
             throw new IllegalArgumentException("Sonar can only be used on the surface. Location given was " + location);
         }
@@ -48,11 +46,10 @@ public class Sonar extends Weapon {
     }
 
     public int movesRemain() {
-        /*since sonar is coming from owner and that owner has been
-        //delegated the weapon and the weapon is being extended
-        we can just call the variable itself*/
+        // since sonar is coming from owner and that owner has been
+        // delegated the weapon and the weapon is being extended
+        // we can just call the variable itself
         return sonarMovesLeft;
-        //return owner.sonar.movesLeft;
     }
 
     public boolean canUseSonar(){
@@ -64,29 +61,33 @@ public class Sonar extends Weapon {
             if(movesRemain() == 0){
                 throw new IllegalArgumentException("No moves left");
             }else{
-                throw new IllegalArgumentException("Have not sunk opponent ship yet");
+                System.out.println("Have not sunk");
             }
 
         }
         else{
             // top row
-            sonarResults[0] = getSonarAt(target.getX(), target.getY()-2, target.getZ());
+            sonarResults[0] = getSonarAt(target.getX()-2, target.getY(), target.getZ());
+
             // second row
             sonarResults[1] = getSonarAt(target.getX()-1, target.getY()-1, target.getZ());
-            sonarResults[2] = getSonarAt(target.getX(), target.getY()-1,0);
-            sonarResults[3] = getSonarAt(target.getX()+1, target.getY()-1, target.getZ());
+            sonarResults[2] = getSonarAt(target.getX()-1, target.getY(), target.getZ());
+            sonarResults[3] = getSonarAt(target.getX()-1, target.getY()+1, target.getZ());
+
             // third row
-            // put true for test case, actual code commented out
-            sonarResults[4] = getSonarAt(target.getX()-2, target.getY(), target.getZ());
-            sonarResults[5] = getSonarAt(target.getX()-1, target.getY(), target.getZ());
+            sonarResults[4] = getSonarAt(target.getX(), target.getY()-2, target.getZ());
+            sonarResults[5] = getSonarAt(target.getX(), target.getY()-1, target.getZ());
             sonarResults[6] = getSonarAt(target.getX(), target.getY(), target.getZ());
-            sonarResults[7] = getSonarAt(target.getX()+1,target.getY(), target.getZ());
-            sonarResults[8] = getSonarAt(target.getX()+2, target.getY(), target.getZ());
+            sonarResults[7] = getSonarAt(target.getX(),target.getY()+1, target.getZ());
+            sonarResults[8] = getSonarAt(target.getX(), target.getY()+2, target.getZ());
+
             // fourth row
-            sonarResults[9] = getSonarAt(target.getX()-1, target.getY()+1, target.getZ());
-            sonarResults[10] = getSonarAt(target.getX(), target.getY()+1, target.getZ());
+            sonarResults[9] = getSonarAt(target.getX()+1, target.getY()-1, target.getZ());
+            sonarResults[10] = getSonarAt(target.getX()+1, target.getY(), target.getZ());
             sonarResults[11] = getSonarAt(target.getX()+1, target.getY()+1, target.getZ());
-            sonarResults[12] = getSonarAt(target.getX(), target.getY()+2, target.getZ());
+
+            // fifth row
+            sonarResults[12] = getSonarAt(target.getX()+2, target.getY(), target.getZ());
 
             sonarMovesLeft -= 1;
         }

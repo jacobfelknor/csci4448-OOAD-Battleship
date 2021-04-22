@@ -1,6 +1,7 @@
 import edu.colorado.fantasticfour.location.Location;
 import org.junit.Assert;
 import org.junit.Test;
+import static org.junit.Assert.fail;
 
 public class LocationClassTest {
 
@@ -59,8 +60,53 @@ public class LocationClassTest {
     }
 
     @Test
+    public void canParseFromString(){
+        String locStr = "2 -5 14";
+        Assert.assertEquals(new Location(2,-5,14), Location.parseLocationString(locStr));
+        String locStr2 = "4 5";
+        Assert.assertEquals(new Location(4,5,0), Location.parseLocationString(locStr2));
+    }
+
+    private void parseStringThrowsNumberFormatExceptionHelper(String badLocStr){
+        try{
+            Location.parseLocationString(badLocStr);
+            fail();
+        }catch (NumberFormatException e){
+            Assert.assertEquals("Input for Location string must contain integers", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseStringThrowsNumberFormatException(){
+        parseStringThrowsNumberFormatExceptionHelper("33m d3 3");
+        parseStringThrowsNumberFormatExceptionHelper("3 4 d");
+        parseStringThrowsNumberFormatExceptionHelper("0 0 .2");
+    }
+
+    private void parseStringThrowsIllegalArgumentExceptionHelper(String badLocStr){
+        try{
+            Location.parseLocationString(badLocStr);
+            fail();
+        }catch (IllegalArgumentException e){
+            Assert.assertEquals("Location string is invalid. Must be 'X Y'", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseStringThrowsIllegalArgumentException(){
+        parseStringThrowsIllegalArgumentExceptionHelper("3");
+        parseStringThrowsIllegalArgumentExceptionHelper("3 4 5 6");
+    }
+
+    @Test
     public void toStringTest(){
         Location location = new Location(7,8);
         Assert.assertEquals("Location<(7,8,0)>", location.toString());
+    }
+
+    @Test
+    public void toSimpleStringTest(){
+        Location location = new Location(7,8, -1);
+        Assert.assertEquals("7 8 -1", location.toSimpleString());
     }
 }

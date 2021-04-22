@@ -22,7 +22,7 @@ public class Location{
     public Location(int x, int y){
         this.x = x;
         this.y = y;
-//      assuming z is 0 if not specified
+        // assuming z is 0 if not specified
         this.z = 0;
     }
 
@@ -47,6 +47,29 @@ public class Location{
     @Override
     public String toString(){
         return "Location<(" + this.getX() + "," + this.getY() + "," + this.getZ() + ")>";
+    }
+
+    public String toSimpleString(){
+        return this.getX() + " " + this.getY() + " " + this.getZ();
+    }
+
+    public static Location parseLocationString(String location){
+        String[] strArr = location.split(" ");
+        if(!(strArr.length == 2 || strArr.length == 3)){
+            throw new IllegalArgumentException("Location string is invalid. Must be 'X Y'");
+        }
+        try{
+
+            int x = Integer.parseInt(strArr[0]);
+            int y = Integer.parseInt(strArr[1]);
+            int z = 0;
+            if(strArr.length == 3){
+                z = Integer.parseInt(strArr[2]);
+            }
+            return new Location(x,y,z);
+        }catch (NumberFormatException e){
+            throw new NumberFormatException("Input for Location string must contain integers");
+        }
     }
 
     public Location plus(Location l){

@@ -1,4 +1,5 @@
 import edu.colorado.fantasticfour.game.Game;
+import edu.colorado.fantasticfour.game.LocalGame;
 import edu.colorado.fantasticfour.game.Player;
 import edu.colorado.fantasticfour.location.Location;
 import org.junit.Assert;
@@ -9,7 +10,7 @@ public class BombClassTest {
     Player player1, player2;
     @Before
     public void setUp(){
-        Game game = new Game();
+        Game game = new LocalGame();
         player1 = game.getPlayer("1");
         player2 = game.getPlayer("2");
     }

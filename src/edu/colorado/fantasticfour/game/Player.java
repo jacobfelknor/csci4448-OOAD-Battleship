@@ -5,7 +5,6 @@ import edu.colorado.fantasticfour.command.MoveFleetCommand;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.ship.*;
 import edu.colorado.fantasticfour.weapons.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -16,6 +15,7 @@ public class Player {
     private Board board;
     private Player opponent;
     private List<Ship> ships;
+    public TerminalGrid tGrid;
 
     private Sonar sonar;
     private Weapon attackWeapon;
@@ -36,8 +36,8 @@ public class Player {
         this.minefield = new MineField(this);
         this.undoCommandStack = new Stack<>();
         this.redoCommandStack = new Stack<>();
+        this.tGrid = new TerminalGrid(this);
     }
-
 
     public Board getTheirBoard() {
         return opponent.board;
@@ -85,7 +85,7 @@ public class Player {
                return ship;
            }
         }
-        throw new IllegalArgumentException("Ship not found");
+        return null;
     }
 
     public void setOpponent(Player opp){

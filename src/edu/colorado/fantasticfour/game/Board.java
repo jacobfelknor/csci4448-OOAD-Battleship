@@ -1,7 +1,6 @@
 package edu.colorado.fantasticfour.game;
 
 import edu.colorado.fantasticfour.location.Location;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +25,7 @@ public class Board {
         assert grid.size() == gridCol*gridRow*gridLayers;
         this.player = player;
     }
-    //i,j,k:false
-    //i,j,k:true
+
     public boolean isOnBoard(Location location){
         return this.grid.containsKey(location);
     }
@@ -37,7 +35,10 @@ public class Board {
     }
 
     public Cell getCellAt(Location location){
-        return this.grid.get(location);
+        if(isOnBoard(location)){
+            return this.grid.get(location);
+        }
+        throw new IllegalArgumentException("Cell does not exist on this board");
     }
 
     public List<Cell> getCellsInColumn(Location location){
@@ -60,5 +61,4 @@ public class Board {
     public Player getPlayer() {
         return player;
     }
-
 }

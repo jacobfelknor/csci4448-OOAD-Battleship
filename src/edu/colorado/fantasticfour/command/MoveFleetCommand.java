@@ -3,12 +3,12 @@ package edu.colorado.fantasticfour.command;
 import edu.colorado.fantasticfour.game.Player;
 import edu.colorado.fantasticfour.location.Location;
 import edu.colorado.fantasticfour.ship.Ship;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class MoveFleetCommand implements Command{
     private Player owner;
+
     private List<Ship> affectedShips;
     private String direction;
     public static String oppositeDirectionOf(String direction){
@@ -40,7 +40,6 @@ public class MoveFleetCommand implements Command{
             default -> throw new IllegalArgumentException("Direction must be one of N, S, E, W. Given + '"
                     + direction + "'");
         }
-        System.out.println(ship.getCaptainsQuarters().plus(moveVector));
         this.owner.placeShip(ship.getName(), ship.getCaptainsQuarters().plus(moveVector), ship.getOrientation());
     }
 
