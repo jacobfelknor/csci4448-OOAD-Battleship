@@ -10,5 +10,5 @@ How to run the code:
 
 - From the final release tag (https://github.com/jacobfelknor/csci4448-OOAD/releases/tag/FinalSubmission), download the source code zip and unzip locally. 
 - Make sure you have java installed. (https://www.java.com/en/download/)
-- From the terminal, navigate to the directory where you unzipped. 
+- From the terminal, navigate to the directory where you unzipped the source code. 
 - Type 'java Main.java' to run the game. 
