@@ -5,3 +5,6 @@
 This is a functional Battleship game, designed using object oriented programming design patterns and test driven development. The game allows for simple network play and a full feature local gameplay. Users take turns trying to sink eachothers ships while avoiding their own ships sinking. Features multiple weapons and ship types, fleet movement options, and real time terminal output to represent the game board.
 
 Developed over the course the Spring 2021 semester as a cumulative project for the Object Oriented Analysis and Design course at The University of Colorado.
+
+How to run the code:
+From the final release tag, download the source code zip. Make sure you have java installed. From the terminal, change directory to src. Type 'java Main.java' to run the code. 
