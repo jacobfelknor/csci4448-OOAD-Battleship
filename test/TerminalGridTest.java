@@ -1,5 +1,5 @@
 import edu.colorado.fantasticfour.game.Player;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 public class TerminalGridTest {
     Player player = new Player();
